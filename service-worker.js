@@ -1,11 +1,11 @@
 // Service Worker për Ligjeratat.com
-const CACHE_NAME = 'ligjeratat-v4-premium';
+const CACHE_NAME = 'ligjeratat-v5-minimal';
 const urlsToCache = [
   '/',
   '/index.html',
   '/styles.css',
-  '/animations.css',
-  '/premium-2025.css',
+  
+  '/minimal-premium.css',
   '/app.js',
   '/modern-filters.js',
   '/manifest.json',
