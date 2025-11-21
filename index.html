@@ -3,16 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Gjej mësimet e imamëve në Kosovë - Orari i plotë i mësimeve fetare">
+    <meta name="theme-color" content="#2c5f2d">
     <title>Ligjeratat - Orari i Mësimeve të Imamëve</title>
+    <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%232c5f2d'/%3E%3Ctext x='50' y='65' font-size='60' text-anchor='middle' fill='white' font-family='Arial, sans-serif' font-weight='bold'%3EL%3C/text%3E%3C/svg%3E">
 </head>
 <body>
     <!-- Header -->
     <header class="header">
         <div class="container">
-            <h1 class="logo">Ligjeratat</h1>
-            <p class="tagline">Orari i Mësimeve të Imamëve në Kosovë</p>
+            <div class="header-content">
+                <div class="header-text">
+                    <h1 class="logo">Ligjeratat</h1>
+                    <p class="tagline">Orari i Mësimeve të Imamëve në Kosovë</p>
+                </div>
+                <button id="dark-mode-toggle" class="dark-mode-toggle" title="Ndrysho pamjen">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
         </div>
     </header>
 
@@ -36,7 +47,11 @@
             <div class="filter-toggle-group">
                 <label class="filter-toggle">
                     <input type="checkbox" id="only-with-schedules">
-                    <span class="toggle-text">Vetëm Hoxha me Mësime</span>
+                    <span class="toggle-text"><i class="fas fa-calendar-check"></i> Vetëm me Mësime</span>
+                </label>
+                <label class="filter-toggle">
+                    <input type="checkbox" id="only-favorites">
+                    <span class="toggle-text"><i class="fas fa-heart"></i> Favoritët e Mi</span>
                 </label>
             </div>
         </div>
@@ -113,6 +128,17 @@
                         <li><i class="fas fa-book"></i> Lexoni artikuj të thellë në Blog</li>
                     </ul>
 
+                    <h3>Newsletter</h3>
+                    <p class="about-text">
+                        Regjistrohu për të marrë njoftime për mësime të reja dhe artikuj nga imamët tanë.
+                    </p>
+                    <form id="newsletter-form" class="newsletter-form">
+                        <input type="email" id="newsletter-email" placeholder="Email adresa juaj" required>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-envelope"></i> Regjistrohu
+                        </button>
+                    </form>
+
                     <h3>Kontakti</h3>
                     <p class="about-text">
                         Për pyetje, sugjerime ose për të shtuar imamë të rinj në platformë, na kontaktoni në: <strong>info@ligjeratat.com</strong>
@@ -145,5 +171,15 @@
     </footer>
 
     <script src="app.js"></script>
+    <script>
+        // Service Worker regjistrim për PWA
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then(reg => console.log('Service Worker regjistruar:', reg.scope))
+                    .catch(err => console.log('Service Worker gabim:', err));
+            });
+        }
+    </script>
 </body>
 </html>

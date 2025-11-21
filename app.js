@@ -161,9 +161,14 @@ const blogPosts = [
 let filteredData = [...imamsData];
 let currentSort = 'name';
 let onlyWithSchedules = false;
+let onlyFavorites = false;
 let currentView = 'imams'; // 'imams', 'blog', 'about'
 let currentBlogCategory = 'all';
 let filteredBlogPosts = [...blogPosts];
+let favoriteImams = [];
+let darkMode = false;
+let userCity = '';
+let userStats = { visited: [], streak: 0, badges: [] };
 
 // Elementet e DOM - Pamja e Imamëve
 const scheduleList = document.getElementById('schedule-list');
@@ -186,8 +191,114 @@ const blogList = document.getElementById('blog-list');
 const noBlogResults = document.getElementById('no-blog-results');
 const blogFilterBtns = document.querySelectorAll('.blog-filter-btn');
 
+// ==================== LOCALSTORAGE & STATE MANAGEMENT ====================
+
+// Ngarkon të dhënat nga LocalStorage
+function loadFromLocalStorage() {
+    try {
+        const stored = localStorage.getItem('ligjeratat_data');
+        if (stored) {
+            const data = JSON.parse(stored);
+            favoriteImams = data.favorites || [];
+            darkMode = data.darkMode || false;
+            userCity = data.userCity || '';
+            userStats = data.userStats || { visited: [], streak: 0, badges: [] };
+        }
+    } catch (e) {
+        console.error('Error loading from localStorage:', e);
+    }
+}
+
+// Ruaj të dhënat në LocalStorage
+function saveToLocalStorage() {
+    try {
+        const data = {
+            favorites: favoriteImams,
+            darkMode: darkMode,
+            userCity: userCity,
+            userStats: userStats,
+            lastUpdated: new Date().toISOString()
+        };
+        localStorage.setItem('ligjeratat_data', JSON.stringify(data));
+    } catch (e) {
+        console.error('Error saving to localStorage:', e);
+    }
+}
+
+// Toggle favorit
+function toggleFavorite(imamId) {
+    const index = favoriteImams.indexOf(imamId);
+    if (index > -1) {
+        favoriteImams.splice(index, 1);
+        showToast('Hoxha u hoq nga favoritët', 'info');
+    } else {
+        favoriteImams.push(imamId);
+        showToast('Hoxha u shtua te favoritët', 'success');
+    }
+    saveToLocalStorage();
+    renderSchedule();
+}
+
+// Kontrollo nëse imami është favorit
+function isFavorite(imamId) {
+    return favoriteImams.includes(imamId);
+}
+
+// ==================== TOAST NOTIFICATIONS ====================
+
+function showToast(message, type = 'info') {
+    const toast = document.createElement('div');
+    toast.className = `toast toast-${type}`;
+
+    const icons = {
+        success: 'fa-check-circle',
+        error: 'fa-exclamation-circle',
+        info: 'fa-info-circle',
+        warning: 'fa-exclamation-triangle'
+    };
+
+    toast.innerHTML = `
+        <i class="fas ${icons[type]}"></i>
+        <span>${message}</span>
+    `;
+
+    document.body.appendChild(toast);
+
+    // Animim i shfaqjes
+    setTimeout(() => toast.classList.add('show'), 10);
+
+    // Fshij pas 3 sekondash
+    setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 300);
+    }, 3000);
+}
+
+// ==================== DARK MODE ====================
+
+function toggleDarkMode() {
+    darkMode = !darkMode;
+    applyDarkMode();
+    saveToLocalStorage();
+    showToast(darkMode ? 'Modaliteti i errët u aktivizua' : 'Modaliteti i dritës u aktivizua', 'info');
+}
+
+function applyDarkMode() {
+    if (darkMode) {
+        document.body.classList.add('dark-mode');
+    } else {
+        document.body.classList.remove('dark-mode');
+    }
+}
+
 // Inicializimi i Aplikacionit
 function init() {
+    // Ngarko të dhënat e ruajtura
+    loadFromLocalStorage();
+
+    // Zbato dark mode nëse është i aktivizuar
+    applyDarkMode();
+
     // Rendit imamët alfabetikisht
     imamsData.sort((a, b) => a.name.localeCompare(b.name));
 
@@ -253,10 +364,14 @@ function createImamCard(imam) {
     const schedules = schedulesByImam[imam.id] || [];
     const scheduleCount = schedules.length;
     const nextSchedule = schedules.length > 0 ? schedules[0] : null;
+    const isFav = isFavorite(imam.id);
 
     const mapLink = `https://maps.google.com/?q=${encodeURIComponent(imam.location + ' ' + imam.city)}`;
 
     card.innerHTML = `
+        <button class="favorite-btn ${isFav ? 'active' : ''}" data-imam-id="${imam.id}" title="${isFav ? 'Hiq nga favoritët' : 'Shto te favoritët'}">
+            <i class="fas fa-heart"></i>
+        </button>
         <div class="card-image">
             <img src="${imam.image}" alt="${imam.name}" loading="lazy">
         </div>
@@ -283,9 +398,26 @@ function createImamCard(imam) {
                 <button class="btn btn-primary view-schedule-btn">
                     <i class="fas fa-eye"></i> Shiko Orarin
                 </button>
+                <button class="btn btn-secondary share-btn" title="Ndaj">
+                    <i class="fas fa-share-alt"></i>
+                </button>
             </div>
         </div>
     `;
+
+    // Favorit button event
+    const favBtn = card.querySelector('.favorite-btn');
+    favBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleFavorite(imam.id);
+    });
+
+    // Share button event
+    const shareBtn = card.querySelector('.share-btn');
+    shareBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        shareImam(imam);
+    });
 
     // Kliko për të hapur modalin me orarin e imamit
     card.addEventListener('click', () => {
@@ -314,8 +446,9 @@ function filterData() {
         const matchImam = !imamValue || item.name.toLowerCase().includes(imamValue);
         const matchCity = !cityValue || item.city === cityValue;
         const matchSchedules = !onlyWithSchedules || (schedulesByImam[item.id] && schedulesByImam[item.id].length > 0);
+        const matchFavorites = !onlyFavorites || isFavorite(item.id);
 
-        return matchImam && matchCity && matchSchedules;
+        return matchImam && matchCity && matchSchedules && matchFavorites;
     });
 
     // Rendit të dhënat
@@ -343,6 +476,176 @@ function sortData() {
     }
 }
 
+// ==================== SHARE FUNCTIONALITY ====================
+
+function shareImam(imam) {
+    const url = `${window.location.origin}${window.location.pathname}#imam-${imam.id}`;
+    const text = `Shiko orarin e mësimeve të Hoxhë ${imam.name} në ${imam.city}`;
+
+    if (navigator.share) {
+        // Native Share API (mobile)
+        navigator.share({
+            title: `Hoxhë ${imam.name}`,
+            text: text,
+            url: url
+        }).then(() => {
+            showToast('U ndanë me sukses!', 'success');
+        }).catch((error) => {
+            if (error.name !== 'AbortError') {
+                fallbackShare(url, text);
+            }
+        });
+    } else {
+        fallbackShare(url, text);
+    }
+}
+
+function fallbackShare(url, text) {
+    // Kopjo në clipboard
+    const textToCopy = `${text}\n${url}`;
+
+    if (navigator.clipboard) {
+        navigator.clipboard.writeText(textToCopy).then(() => {
+            showToast('Linku u kopjua! Tani mund ta ndash me të tjerët.', 'success');
+        }).catch(() => {
+            showShareModal(url, text);
+        });
+    } else {
+        showShareModal(url, text);
+    }
+}
+
+function showShareModal(url, text) {
+    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(text + '\n' + url)}`;
+    const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+
+    const modal = document.createElement('div');
+    modal.className = 'share-modal';
+    modal.innerHTML = `
+        <div class="share-modal-content">
+            <h3>Ndaje me të tjerët</h3>
+            <div class="share-buttons">
+                <a href="${whatsappUrl}" target="_blank" class="share-option whatsapp">
+                    <i class="fab fa-whatsapp"></i> WhatsApp
+                </a>
+                <a href="${facebookUrl}" target="_blank" class="share-option facebook">
+                    <i class="fab fa-facebook"></i> Facebook
+                </a>
+                <button class="share-option copy-link" data-url="${url}">
+                    <i class="fas fa-link"></i> Kopjo Linkun
+                </button>
+            </div>
+            <button class="close-share-modal">Mbyll</button>
+        </div>
+    `;
+
+    document.body.appendChild(modal);
+    setTimeout(() => modal.classList.add('show'), 10);
+
+    modal.querySelector('.copy-link').addEventListener('click', function() {
+        const urlToCopy = this.getAttribute('data-url');
+        navigator.clipboard.writeText(urlToCopy).then(() => {
+            showToast('Linku u kopjua!', 'success');
+            modal.remove();
+        });
+    });
+
+    modal.querySelector('.close-share-modal').addEventListener('click', () => {
+        modal.classList.remove('show');
+        setTimeout(() => modal.remove(), 300);
+    });
+}
+
+// ==================== CALENDAR EXPORT ====================
+
+function exportToCalendar(schedule, imam) {
+    const event = {
+        title: schedule.topic,
+        description: schedule.description + `\n\nHoxhë: ${imam.name}`,
+        location: `${imam.location}, ${imam.city}`,
+        start: new Date(`${schedule.date}T${schedule.time}`),
+        duration: 90 // 1.5 orë
+    };
+
+    const icsContent = generateICS(event);
+    downloadICS(icsContent, `mesim-${imam.name.replace(/\s+/g, '-')}-${schedule.date}.ics`);
+    showToast('Eventi u shtua! Hape me kalendarin tënd.', 'success');
+}
+
+function generateICS(event) {
+    const startDate = formatICSDate(event.start);
+    const endDate = formatICSDate(new Date(event.start.getTime() + event.duration * 60000));
+
+    return `BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Ligjeratat.com//Orari i Mësimeve//EN
+BEGIN:VEVENT
+UID:${Date.now()}@ligjeratat.com
+DTSTAMP:${startDate}
+DTSTART:${startDate}
+DTEND:${endDate}
+SUMMARY:${event.title}
+DESCRIPTION:${event.description.replace(/\n/g, '\\n')}
+LOCATION:${event.location}
+STATUS:CONFIRMED
+SEQUENCE:0
+END:VEVENT
+END:VCALENDAR`;
+}
+
+function formatICSDate(date) {
+    return date.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+}
+
+function downloadICS(content, filename) {
+    const blob = new Blob([content], { type: 'text/calendar;charset=utf-8' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+// ==================== BROWSER NOTIFICATIONS ====================
+
+let notificationPermission = 'default';
+
+async function requestNotificationPermission() {
+    if ('Notification' in window) {
+        notificationPermission = await Notification.requestPermission();
+        if (notificationPermission === 'granted') {
+            showToast('Njoftimet u aktivizuan!', 'success');
+        } else if (notificationPermission === 'denied') {
+            showToast('Njoftimet janë të bllokuara. Aktivizoji nga cilësimet e shfletuesit.', 'warning');
+        }
+    }
+}
+
+function scheduleNotification(schedule, imam) {
+    if (notificationPermission !== 'granted') {
+        requestNotificationPermission().then(() => {
+            if (notificationPermission === 'granted') {
+                saveNotification(schedule, imam);
+            }
+        });
+    } else {
+        saveNotification(schedule, imam);
+    }
+}
+
+function saveNotification(schedule, imam) {
+    const notifications = JSON.parse(localStorage.getItem('scheduled_notifications') || '[]');
+    notifications.push({
+        id: Date.now(),
+        schedule: schedule,
+        imam: imam,
+        scheduledFor: schedule.date + ' ' + schedule.time
+    });
+    localStorage.setItem('scheduled_notifications', JSON.stringify(notifications));
+    showToast('Do të njoftohesh para mësimit!', 'success');
+}
+
 // Vendos dëgjuesit e ngjarjeve (shih poshtë për implementimin e plotë)
 
 // Hap modalin me orarin e imamit
@@ -352,7 +655,7 @@ function openModal(imam) {
 
     let schedulesHTML = '';
     if (schedules.length > 0) {
-        schedulesHTML = schedules.map(schedule => {
+        schedulesHTML = schedules.map((schedule, index) => {
             const formattedDate = formatDate(schedule.date);
             return `
                 <div class="schedule-item">
@@ -362,6 +665,14 @@ function openModal(imam) {
                     </div>
                     <p class="schedule-date"><i class="fas fa-calendar-day"></i> ${formattedDate}</p>
                     <p class="schedule-description">${schedule.description}</p>
+                    <div class="schedule-item-actions">
+                        <button class="btn btn-sm btn-outline schedule-export-btn" data-schedule-index="${index}">
+                            <i class="fas fa-calendar-plus"></i> Shto në Kalendar
+                        </button>
+                        <button class="btn btn-sm btn-outline schedule-notify-btn" data-schedule-index="${index}">
+                            <i class="fas fa-bell"></i> Më kujto
+                        </button>
+                    </div>
                 </div>
             `;
         }).join('');
@@ -397,9 +708,35 @@ function openModal(imam) {
                 <a href="${mapLink}" target="_blank" class="btn btn-primary">
                     <i class="fas fa-map-marked-alt"></i> Shiko në Hartë
                 </a>
+                <button class="btn btn-secondary modal-share-btn">
+                    <i class="fas fa-share-alt"></i> Ndaj
+                </button>
             </div>
         </div>
     `;
+
+    // Event listeners për butonat e eksportit dhe njoftimeve
+    document.querySelectorAll('.schedule-export-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const index = parseInt(btn.getAttribute('data-schedule-index'));
+            exportToCalendar(schedules[index], imam);
+        });
+    });
+
+    document.querySelectorAll('.schedule-notify-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const index = parseInt(btn.getAttribute('data-schedule-index'));
+            scheduleNotification(schedules[index], imam);
+        });
+    });
+
+    // Event listener për share button
+    const modalShareBtn = modalBody.querySelector('.modal-share-btn');
+    if (modalShareBtn) {
+        modalShareBtn.addEventListener('click', () => {
+            shareImam(imam);
+        });
+    }
 
     detailModal.classList.add('active');
     document.body.style.overflow = 'hidden';
@@ -625,6 +962,26 @@ function setupEventListeners() {
         filterData();
     });
 
+    // Favoriten filter
+    const onlyFavoritesToggle = document.getElementById('only-favorites');
+    if (onlyFavoritesToggle) {
+        onlyFavoritesToggle.addEventListener('change', (e) => {
+            onlyFavorites = e.target.checked;
+            filterData();
+        });
+    }
+
+    // Dark mode toggle
+    const darkModeToggle = document.getElementById('dark-mode-toggle');
+    if (darkModeToggle) {
+        darkModeToggle.addEventListener('click', () => {
+            toggleDarkMode();
+            // Update icon
+            const icon = darkModeToggle.querySelector('i');
+            icon.className = darkMode ? 'fas fa-sun' : 'fas fa-moon';
+        });
+    }
+
     modalClose.addEventListener('click', closeModal);
     detailModal.addEventListener('click', (e) => {
         if (e.target === detailModal) {
@@ -656,6 +1013,25 @@ function setupEventListeners() {
             filterBlogPosts(category);
         });
     });
+
+    // Newsletter form
+    const newsletterForm = document.getElementById('newsletter-form');
+    if (newsletterForm) {
+        newsletterForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('newsletter-email').value;
+            // Ruaj në localStorage (në prodhim do të dërgohej në server)
+            const newsletters = JSON.parse(localStorage.getItem('newsletter_emails') || '[]');
+            if (!newsletters.includes(email)) {
+                newsletters.push(email);
+                localStorage.setItem('newsletter_emails', JSON.stringify(newsletters));
+                showToast('Faleminderit! Ju do të merrni njoftime për mësime të reja.', 'success');
+                newsletterForm.reset();
+            } else {
+                showToast('Kjo email është tashmë e regjistruar.', 'info');
+            }
+        });
+    }
 }
 
 // Inicializo aplikacionin kur ngarkohet faqja
