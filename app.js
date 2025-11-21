@@ -343,8 +343,167 @@ function init() {
     // Shfaq listën e imamëve
     renderSchedule();
 
+    // Initialize Hero Section
+    initHeroSection();
+
+    // Render Featured Imams
+    renderFeaturedImams();
+
     // Vendos dëgjuesit e ngjarjeve
     setupEventListeners();
+}
+
+// ==================== HERO SECTION & FEATURED ====================
+
+function initHeroSection() {
+    // Animate stat numbers
+    const statNumbers = document.querySelectorAll('.stat-number');
+    statNumbers.forEach(stat => {
+        const target = parseInt(stat.getAttribute('data-count'));
+        animateNumber(stat, 0, target, 2000);
+    });
+
+    // Hero button event listeners
+    const quickSearchBtn = document.getElementById('quick-search-btn');
+    if (quickSearchBtn) {
+        quickSearchBtn.addEventListener('click', () => {
+            document.getElementById('filter-imam').focus();
+            document.getElementById('filter-imam').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+    }
+
+    const featuredBtn = document.getElementById('featured-imams-btn');
+    if (featuredBtn) {
+        featuredBtn.addEventListener('click', () => {
+            document.getElementById('featured-section').scrollIntoView({ behavior: 'smooth' });
+        });
+    }
+
+    const liveNowBtn = document.getElementById('live-now-btn');
+    if (liveNowBtn) {
+        liveNowBtn.addEventListener('click', () => {
+            // Filter für nur LIVE Mësime
+            const now = new Date();
+            const liveImams = imamsData.filter(imam => {
+                const schedules = schedulesByImam[imam.id] || [];
+                return schedules.some(schedule => {
+                    const scheduleDate = new Date(`${schedule.date}T${schedule.time}`);
+                    const diff = now - scheduleDate;
+                    return diff > 0 && diff < 5400000; // 90 minutes
+                });
+            });
+
+            if (liveImams.length > 0) {
+                filteredData = liveImams;
+                renderSchedule();
+                document.getElementById('imams-view').scrollIntoView({ behavior: 'smooth' });
+                showToast(`${liveImams.length} mësim LIVE tani!`, 'success');
+            } else {
+                showToast('Nuk ka mësime LIVE tani. Provo më vonë!', 'info');
+            }
+        });
+    }
+}
+
+function animateNumber(element, start, end, duration) {
+    const range = end - start;
+    const increment = range / (duration / 16); // 60fps
+    let current = start;
+
+    const timer = setInterval(() => {
+        current += increment;
+        if (current >= end) {
+            element.textContent = end;
+            clearInterval(timer);
+        } else {
+            element.textContent = Math.floor(current);
+        }
+    }, 16);
+}
+
+function renderFeaturedImams() {
+    const featuredGrid = document.getElementById('featured-imams-grid');
+    if (!featuredGrid) return;
+
+    // Get top 3 imams with most schedules
+    const imamsWithScheduleCount = imamsData
+        .map(imam => ({
+            ...imam,
+            scheduleCount: (schedulesByImam[imam.id] || []).length
+        }))
+        .filter(imam => imam.scheduleCount > 0)
+        .sort((a, b) => b.scheduleCount - a.scheduleCount)
+        .slice(0, 3);
+
+    featuredGrid.innerHTML = imamsWithScheduleCount.map(imam => {
+        const schedules = schedulesByImam[imam.id] || [];
+        const nextSchedule = schedules[0];
+
+        return `
+            <div class="featured-imam-card" data-imam-id="${imam.id}">
+                <div class="featured-imam-image">
+                    <img src="${imam.image}" alt="${imam.name}" loading="lazy">
+                    <div class="featured-imam-badge">
+                        <i class="fas fa-star"></i>
+                        <span>TOP</span>
+                    </div>
+                </div>
+                <div class="featured-imam-info">
+                    <h3 class="featured-imam-name">Hoxhë ${imam.name}</h3>
+                    <div class="featured-imam-meta">
+                        <span class="meta-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            ${imam.city}
+                        </span>
+                        <span class="meta-item">
+                            <i class="fas fa-book"></i>
+                            ${imam.scheduleCount} Mësime
+                        </span>
+                    </div>
+                    ${imam.specialization ? `
+                        <div class="featured-imam-specializations">
+                            ${imam.specialization.map(s => `<span class="spec-tag">${s}</span>`).join('')}
+                        </div>
+                    ` : ''}
+                    ${nextSchedule ? `
+                        <div class="next-lesson-info">
+                            <i class="fas fa-calendar-alt"></i>
+                            Tjetri: ${formatDate(nextSchedule.date)} ${nextSchedule.time}
+                        </div>
+                    ` : ''}
+                    <div class="featured-imam-actions">
+                        <button class="btn btn-primary view-featured-btn">
+                            <i class="fas fa-eye"></i> Shiko
+                        </button>
+                        <button class="btn btn-secondary fav-featured-btn">
+                            <i class="fas fa-heart${isFavorite(imam.id) ? ' active' : ''}"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+    }).join('');
+
+    // Add event listeners to featured cards
+    document.querySelectorAll('.featured-imam-card').forEach(card => {
+        const imamId = parseInt(card.getAttribute('data-imam-id'));
+        const imam = imamsData.find(i => i.id === imamId);
+
+        card.querySelector('.view-featured-btn').addEventListener('click', (e) => {
+            e.stopPropagation();
+            openModal(imam);
+        });
+
+        card.querySelector('.fav-featured-btn').addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleFavorite(imamId);
+            renderFeaturedImams(); // Re-render to update heart icon
+        });
+
+        card.addEventListener('click', () => {
+            openModal(imam);
+        });
+    });
 }
 
 // Populloj filtrat dropdown

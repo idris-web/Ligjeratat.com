@@ -1,9 +1,10 @@
 // Service Worker për Ligjeratat.com
-const CACHE_NAME = 'ligjeratat-v1';
+const CACHE_NAME = 'ligjeratat-v2';
 const urlsToCache = [
   '/',
   '/index.html',
   '/styles.css',
+  '/animations.css',
   '/app.js',
   '/manifest.json',
   'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'
