@@ -14,7 +14,7 @@ const scheduleData = [
     },
     {
         id: 2,
-        imam: "Hoxhë Rexhep Memishi",
+        imam: "Hoxhë Enis Rama",
         topic: "Fikhul Ibadet - Namazi dhe Rëndësia e Tij",
         date: "2025-11-23",
         time: "17:30",
@@ -26,7 +26,7 @@ const scheduleData = [
     },
     {
         id: 3,
-        imam: "Hoxhë Shefqet Krasniqi",
+        imam: "Hoxhë Ekrem Avdiu",
         topic: "Akide - Besimi në Ditën e Fundit",
         date: "2025-11-24",
         time: "19:00",
@@ -50,7 +50,7 @@ const scheduleData = [
     },
     {
         id: 5,
-        imam: "Hoxhë Rexhep Memishi",
+        imam: "Hoxhë Blerim Musliu",
         topic: "Etika Islame - Sjellja me Prindërit",
         date: "2025-11-26",
         time: "17:00",
@@ -62,7 +62,7 @@ const scheduleData = [
     },
     {
         id: 6,
-        imam: "Hoxhë Bekim Jashari",
+        imam: "Hoxhë Ismail Bardhoshi",
         topic: "Tefsiri i Kur'anit - Surja El-Kehf",
         date: "2025-11-27",
         time: "18:00",
@@ -74,19 +74,19 @@ const scheduleData = [
     },
     {
         id: 7,
-        imam: "Hoxhë Shefqet Krasniqi",
+        imam: "Hoxhë Rasim Haxha",
         topic: "Hytbeja e së Xhumasë - Falënderimi ndaj Allahut",
         date: "2025-11-28",
         time: "13:00",
-        city: "Prishtinë",
-        location: "Xhamia e Madhe",
+        city: "Ferizaj",
+        location: "Xhamia Qendrore",
         description: "Hytbe e veçantë e së Xhumasë që fokusohet në rëndësinë e falënderimit ndaj Allahut.",
         image: "🤲",
-        mapLink: "https://maps.google.com/?q=Xhamia+e+Madhe+Prishtinë"
+        mapLink: "https://maps.google.com/?q=Xhamia+Qendrore+Ferizaj"
     },
     {
         id: 8,
-        imam: "Hoxhë Bekir Halimi",
+        imam: "Hoxhë Zeki Qerkezi",
         topic: "Fikhul Muamelat - Tregtia në Islam",
         date: "2025-11-29",
         time: "19:00",
@@ -98,7 +98,7 @@ const scheduleData = [
     },
     {
         id: 9,
-        imam: "Hoxhë Arben Vokshi",
+        imam: "Hoxhë Llokman Hoxha",
         topic: "Akhlak - Durimi dhe Sabri",
         date: "2025-11-30",
         time: "18:00",
@@ -110,15 +110,135 @@ const scheduleData = [
     },
     {
         id: 10,
-        imam: "Hoxhë Bekim Jashari",
+        imam: "Hoxhë Sulltan Pajaziti",
         topic: "Tefsiri i Kur'anit - Surja En-Nur",
         date: "2025-12-01",
         time: "17:30",
-        city: "Mitrovicë",
-        location: "Xhamia Qendrore",
+        city: "Gjilan",
+        location: "Xhamia e Madhe",
         description: "Shpjegim i Surës En-Nur dhe mësimeve të saj rreth moralit dhe sjelljes së pastër.",
         image: "✨",
+        mapLink: "https://maps.google.com/?q=Xhamia+e+Madhe+Gjilan"
+    },
+    {
+        id: 11,
+        imam: "Hoxhë Alaudin Abazi",
+        topic: "Tefsiri i Kur'anit - Surja El-Fatiha",
+        date: "2025-12-02",
+        time: "18:30",
+        city: "Prishtinë",
+        location: "Xhamia e Madhe",
+        description: "Shpjegim i hollësishëm i Surës El-Fatiha dhe rëndësisë së saj si themeli i Kur'anit.",
+        image: "📿",
+        mapLink: "https://maps.google.com/?q=Xhamia+e+Madhe+Prishtinë"
+    },
+    {
+        id: 12,
+        imam: "Hoxhë Bajram Karabegu",
+        topic: "Fikhul Ibadet - Agjërimi dhe Mjeshtëria Shpirtërore",
+        date: "2025-12-03",
+        time: "19:00",
+        city: "Vushtrri",
+        location: "Xhamia Gazi Ali Beu",
+        description: "Mësim rreth rëndësisë së agjërimit dhe ndikimit të tij në pastërtinë shpirtërore.",
+        image: "🌙",
+        mapLink: "https://maps.google.com/?q=Xhamia+Gazi+Ali+Beu+Vushtrri"
+    },
+    {
+        id: 13,
+        imam: "Hoxhë Sadat Rrustemi",
+        topic: "Sira e Pejgamberit (a.s.) - Hixhreti",
+        date: "2025-12-04",
+        time: "18:00",
+        city: "Prizren",
+        location: "Xhamia Sinan Pasha",
+        description: "Studim i Hixhretit dhe mësimeve të tij për jetën e muslimanit të sotëm.",
+        image: "☪️",
+        mapLink: "https://maps.google.com/?q=Xhamia+Sinan+Pasha+Prizren"
+    },
+    {
+        id: 14,
+        imam: "Hoxhë Mustafa Terniqi",
+        topic: "Akhlak - Drejtësia dhe Barazia",
+        date: "2025-12-05",
+        time: "17:30",
+        city: "Mitrovicë",
+        location: "Xhamia Qendrore",
+        description: "Diskutim rreth konceptit të drejtësisë dhe barazisë në Islam dhe aplikimin e tyre në shoqëri.",
+        image: "⚖️",
         mapLink: "https://maps.google.com/?q=Xhamia+Qendrore+Mitrovicë"
+    },
+    {
+        id: 15,
+        imam: "Hoxhë Sedat Islami",
+        topic: "Tefsiri i Kur'anit - Surja Junus",
+        date: "2025-12-06",
+        time: "18:00",
+        city: "Pejë",
+        location: "Xhamia Bajrakli",
+        description: "Interpretim i Surës Junus dhe mësimeve të saj rreth besimit dhe përkushtimit.",
+        image: "📖",
+        mapLink: "https://maps.google.com/?q=Xhamia+Bajrakli+Pejë"
+    },
+    {
+        id: 16,
+        imam: "Hoxhë Adnan Pallqa",
+        topic: "Fikhul Muamelat - Dhënia dhe Sadakaja",
+        date: "2025-12-07",
+        time: "19:00",
+        city: "Ferizaj",
+        location: "Xhamia Qendrore",
+        description: "Mësim rreth rëndësisë së dhënies dhe sadakasë në Islam dhe begatitë e saj.",
+        image: "💰",
+        mapLink: "https://maps.google.com/?q=Xhamia+Qendrore+Ferizaj"
+    },
+    {
+        id: 17,
+        imam: "Hoxhë Jusuf Kastrati",
+        topic: "Akide - Besimi në Melaiket",
+        date: "2025-12-08",
+        time: "18:30",
+        city: "Gjakovë",
+        location: "Xhamia Hadum",
+        description: "Një mësim i detajuar rreth besimit në melaiket dhe rolit të tyre në univers.",
+        image: "👼",
+        mapLink: "https://maps.google.com/?q=Xhamia+Hadum+Gjakovë"
+    },
+    {
+        id: 18,
+        imam: "Hoxhë Arsim Morina",
+        topic: "Etika Islame - Sinqeriteti në Vepër",
+        date: "2025-12-09",
+        time: "17:00",
+        city: "Gjilan",
+        location: "Xhamia e Madhe",
+        description: "Diskutim rreth rëndësisë së sinqeritetit në vepra dhe qëllimi i pastër në adhurim.",
+        image: "💚",
+        mapLink: "https://maps.google.com/?q=Xhamia+e+Madhe+Gjilan"
+    },
+    {
+        id: 19,
+        imam: "Hoxhë Abdurrahman Bejtullahu",
+        topic: "Tefsiri i Kur'anit - Surja El-Mulk",
+        date: "2025-12-10",
+        time: "18:00",
+        city: "Prishtinë",
+        location: "Xhamia e Madhe",
+        description: "Shpjegim i Surës El-Mulk dhe mësimeve të saj rreth sovranitetit të Allahut.",
+        image: "🌟",
+        mapLink: "https://maps.google.com/?q=Xhamia+e+Madhe+Prishtinë"
+    },
+    {
+        id: 20,
+        imam: "Hoxhë Sami Fetahu",
+        topic: "Fikhul Ibadet - Zeqati dhe Obligimet",
+        date: "2025-12-11",
+        time: "19:00",
+        city: "Vushtrri",
+        location: "Xhamia Gazi Ali Beu",
+        description: "Mësim i detajuar rreth zeqatit, llogaritjes dhe shpërndarjes së tij.",
+        image: "💎",
+        mapLink: "https://maps.google.com/?q=Xhamia+Gazi+Ali+Beu+Vushtrri"
     }
 ];
 
