@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ligjeratat - Orari i Mësimeve të Imamëve</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">Ligjeratat</h1>
+            <p class="tagline">Orari i Mësimeve të Imamëve në Kosovë</p>
+        </div>
+    </header>
+
+    <!-- Filters -->
+    <section class="filters">
+        <div class="container">
+            <div class="filter-group">
+                <select id="filter-imam" class="filter-select">
+                    <option value="">Të gjithë Imamët</option>
+                </select>
+
+                <select id="filter-topic" class="filter-select">
+                    <option value="">Të gjitha Temat</option>
+                </select>
+
+                <select id="filter-city" class="filter-select">
+                    <option value="">Të gjitha Qytetet</option>
+                </select>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <div id="schedule-list" class="schedule-grid">
+                <!-- Schedule cards will be inserted here -->
+            </div>
+
+            <div id="no-results" class="no-results" style="display: none;">
+                <p>Nuk ka mësime që përputhen me filtrat e zgjedhur.</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Detail Modal -->
+    <div id="detail-modal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" id="modal-close">&times;</button>
+            <div id="modal-body">
+                <!-- Detail content will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <nav class="footer-nav">
+                <a href="#" class="footer-link active">Orari</a>
+                <a href="#about" class="footer-link">Rreth Platformës</a>
+            </nav>
+            <p class="footer-text">© 2025 Ligjeratat.com - Orari i Mësimeve të Imamëve</p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
