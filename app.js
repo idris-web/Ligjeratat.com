@@ -1,249 +1,100 @@
-// Sample data - In production, this would come from an API
-const scheduleData = [
-    {
-        id: 1,
-        imam: "Hoxhë Shefqet Krasniqi",
-        topic: "Tefsiri i Kur'anit - Surja El-Bekare",
-        date: "2025-11-22",
-        time: "18:00",
-        city: "Prishtinë",
-        location: "Xhamia e Madhe",
-        description: "Një shpjegim i detajuar i Surës El-Bekare, duke u fokusuar në mësimet dhe udhëzimet e saj për jetën e përditshme.",
-        image: "📖",
-        mapLink: "https://maps.google.com/?q=Xhamia+e+Madhe+Prishtinë"
-    },
-    {
-        id: 2,
-        imam: "Hoxhë Enis Rama",
-        topic: "Fikhul Ibadet - Namazi dhe Rëndësia e Tij",
-        date: "2025-11-23",
-        time: "17:30",
-        city: "Prizren",
-        location: "Xhamia Sinan Pasha",
-        description: "Diskutim rreth rregullave të namazit dhe rëndësisë së tij në jetën e një muslimani.",
-        image: "🕌",
-        mapLink: "https://maps.google.com/?q=Xhamia+Sinan+Pasha+Prizren"
-    },
-    {
-        id: 3,
-        imam: "Hoxhë Ekrem Avdiu",
-        topic: "Akide - Besimi në Ditën e Fundit",
-        date: "2025-11-24",
-        time: "19:00",
-        city: "Prishtinë",
-        location: "Xhamia e Madhe",
-        description: "Një mësim rreth besimit në Ditën e Fundit dhe pasojat e saj në sjelljen e përditshme.",
-        image: "🌙",
-        mapLink: "https://maps.google.com/?q=Xhamia+e+Madhe+Prishtinë"
-    },
-    {
-        id: 4,
-        imam: "Hoxhë Bekir Halimi",
-        topic: "Sira e Pejgamberit (a.s.) - Faza e Mekas",
-        date: "2025-11-25",
-        time: "18:30",
-        city: "Pejë",
-        location: "Xhamia Bajrakli",
-        description: "Studim i jetës së Pejgamberit Muhamed (a.s.) gjatë periudhës së Mekas dhe mësimet që mund të nxjerrim.",
-        image: "☪️",
-        mapLink: "https://maps.google.com/?q=Xhamia+Bajrakli+Pejë"
-    },
-    {
-        id: 5,
-        imam: "Hoxhë Blerim Musliu",
-        topic: "Etika Islame - Sjellja me Prindërit",
-        date: "2025-11-26",
-        time: "17:00",
-        city: "Prizren",
-        location: "Xhamia Sinan Pasha",
-        description: "Mësim rreth rëndësisë së respektimit dhe kujdesit ndaj prindërve sipas mësimeve islame.",
-        image: "💚",
-        mapLink: "https://maps.google.com/?q=Xhamia+Sinan+Pasha+Prizren"
-    },
-    {
-        id: 6,
-        imam: "Hoxhë Ismail Bardhoshi",
-        topic: "Tefsiri i Kur'anit - Surja El-Kehf",
-        date: "2025-11-27",
-        time: "18:00",
-        city: "Mitrovicë",
-        location: "Xhamia Qendrore",
-        description: "Interpretim i Surës El-Kehf dhe historive të saj të përshkruara në Kur'an.",
-        image: "📚",
-        mapLink: "https://maps.google.com/?q=Xhamia+Qendrore+Mitrovicë"
-    },
-    {
-        id: 7,
-        imam: "Hoxhë Rasim Haxha",
-        topic: "Hytbeja e së Xhumasë - Falënderimi ndaj Allahut",
-        date: "2025-11-28",
-        time: "13:00",
-        city: "Ferizaj",
-        location: "Xhamia Qendrore",
-        description: "Hytbe e veçantë e së Xhumasë që fokusohet në rëndësinë e falënderimit ndaj Allahut.",
-        image: "🤲",
-        mapLink: "https://maps.google.com/?q=Xhamia+Qendrore+Ferizaj"
-    },
-    {
-        id: 8,
-        imam: "Hoxhë Zeki Qerkezi",
-        topic: "Fikhul Muamelat - Tregtia në Islam",
-        date: "2025-11-29",
-        time: "19:00",
-        city: "Pejë",
-        location: "Xhamia Bajrakli",
-        description: "Diskutim rreth parimeve të tregtisë së ndershme dhe halal sipas Islamit.",
-        image: "💼",
-        mapLink: "https://maps.google.com/?q=Xhamia+Bajrakli+Pejë"
-    },
-    {
-        id: 9,
-        imam: "Hoxhë Llokman Hoxha",
-        topic: "Akhlak - Durimi dhe Sabri",
-        date: "2025-11-30",
-        time: "18:00",
-        city: "Gjakovë",
-        location: "Xhamia Hadum",
-        description: "Mësim rreth rëndësisë së durimit dhe sabrës në situata të vështira të jetës.",
-        image: "🌟",
-        mapLink: "https://maps.google.com/?q=Xhamia+Hadum+Gjakovë"
-    },
-    {
-        id: 10,
-        imam: "Hoxhë Sulltan Pajaziti",
-        topic: "Tefsiri i Kur'anit - Surja En-Nur",
-        date: "2025-12-01",
-        time: "17:30",
-        city: "Gjilan",
-        location: "Xhamia e Madhe",
-        description: "Shpjegim i Surës En-Nur dhe mësimeve të saj rreth moralit dhe sjelljes së pastër.",
-        image: "✨",
-        mapLink: "https://maps.google.com/?q=Xhamia+e+Madhe+Gjilan"
-    },
-    {
-        id: 11,
-        imam: "Hoxhë Alaudin Abazi",
-        topic: "Tefsiri i Kur'anit - Surja El-Fatiha",
-        date: "2025-12-02",
-        time: "18:30",
-        city: "Prishtinë",
-        location: "Xhamia e Madhe",
-        description: "Shpjegim i hollësishëm i Surës El-Fatiha dhe rëndësisë së saj si themeli i Kur'anit.",
-        image: "📿",
-        mapLink: "https://maps.google.com/?q=Xhamia+e+Madhe+Prishtinë"
-    },
-    {
-        id: 12,
-        imam: "Hoxhë Bajram Karabegu",
-        topic: "Fikhul Ibadet - Agjërimi dhe Mjeshtëria Shpirtërore",
-        date: "2025-12-03",
-        time: "19:00",
-        city: "Vushtrri",
-        location: "Xhamia Gazi Ali Beu",
-        description: "Mësim rreth rëndësisë së agjërimit dhe ndikimit të tij në pastërtinë shpirtërore.",
-        image: "🌙",
-        mapLink: "https://maps.google.com/?q=Xhamia+Gazi+Ali+Beu+Vushtrri"
-    },
-    {
-        id: 13,
-        imam: "Hoxhë Sadat Rrustemi",
-        topic: "Sira e Pejgamberit (a.s.) - Hixhreti",
-        date: "2025-12-04",
-        time: "18:00",
-        city: "Prizren",
-        location: "Xhamia Sinan Pasha",
-        description: "Studim i Hixhretit dhe mësimeve të tij për jetën e muslimanit të sotëm.",
-        image: "☪️",
-        mapLink: "https://maps.google.com/?q=Xhamia+Sinan+Pasha+Prizren"
-    },
-    {
-        id: 14,
-        imam: "Hoxhë Mustafa Terniqi",
-        topic: "Akhlak - Drejtësia dhe Barazia",
-        date: "2025-12-05",
-        time: "17:30",
-        city: "Mitrovicë",
-        location: "Xhamia Qendrore",
-        description: "Diskutim rreth konceptit të drejtësisë dhe barazisë në Islam dhe aplikimin e tyre në shoqëri.",
-        image: "⚖️",
-        mapLink: "https://maps.google.com/?q=Xhamia+Qendrore+Mitrovicë"
-    },
-    {
-        id: 15,
-        imam: "Hoxhë Sedat Islami",
-        topic: "Tefsiri i Kur'anit - Surja Junus",
-        date: "2025-12-06",
-        time: "18:00",
-        city: "Pejë",
-        location: "Xhamia Bajrakli",
-        description: "Interpretim i Surës Junus dhe mësimeve të saj rreth besimit dhe përkushtimit.",
-        image: "📖",
-        mapLink: "https://maps.google.com/?q=Xhamia+Bajrakli+Pejë"
-    },
-    {
-        id: 16,
-        imam: "Hoxhë Adnan Pallqa",
-        topic: "Fikhul Muamelat - Dhënia dhe Sadakaja",
-        date: "2025-12-07",
-        time: "19:00",
-        city: "Ferizaj",
-        location: "Xhamia Qendrore",
-        description: "Mësim rreth rëndësisë së dhënies dhe sadakasë në Islam dhe begatitë e saj.",
-        image: "💰",
-        mapLink: "https://maps.google.com/?q=Xhamia+Qendrore+Ferizaj"
-    },
-    {
-        id: 17,
-        imam: "Hoxhë Jusuf Kastrati",
-        topic: "Akide - Besimi në Melaiket",
-        date: "2025-12-08",
-        time: "18:30",
-        city: "Gjakovë",
-        location: "Xhamia Hadum",
-        description: "Një mësim i detajuar rreth besimit në melaiket dhe rolit të tyre në univers.",
-        image: "👼",
-        mapLink: "https://maps.google.com/?q=Xhamia+Hadum+Gjakovë"
-    },
-    {
-        id: 18,
-        imam: "Hoxhë Arsim Morina",
-        topic: "Etika Islame - Sinqeriteti në Vepër",
-        date: "2025-12-09",
-        time: "17:00",
-        city: "Gjilan",
-        location: "Xhamia e Madhe",
-        description: "Diskutim rreth rëndësisë së sinqeritetit në vepra dhe qëllimi i pastër në adhurim.",
-        image: "💚",
-        mapLink: "https://maps.google.com/?q=Xhamia+e+Madhe+Gjilan"
-    },
-    {
-        id: 19,
-        imam: "Hoxhë Abdurrahman Bejtullahu",
-        topic: "Tefsiri i Kur'anit - Surja El-Mulk",
-        date: "2025-12-10",
-        time: "18:00",
-        city: "Prishtinë",
-        location: "Xhamia e Madhe",
-        description: "Shpjegim i Surës El-Mulk dhe mësimeve të saj rreth sovranitetit të Allahut.",
-        image: "🌟",
-        mapLink: "https://maps.google.com/?q=Xhamia+e+Madhe+Prishtinë"
-    },
-    {
-        id: 20,
-        imam: "Hoxhë Sami Fetahu",
-        topic: "Fikhul Ibadet - Zeqati dhe Obligimet",
-        date: "2025-12-11",
-        time: "19:00",
-        city: "Vushtrri",
-        location: "Xhamia Gazi Ali Beu",
-        description: "Mësim i detajuar rreth zeqatit, llogaritjes dhe shpërndarjes së tij.",
-        image: "💎",
-        mapLink: "https://maps.google.com/?q=Xhamia+Gazi+Ali+Beu+Vushtrri"
-    }
+// Complete list of all 76 Imams in Kosovo
+const imamsData = [
+    { id: 1, name: "Ekrem Avdiu", city: "Prishtinë", location: "Xhamia e Madhe", image: "🕌" },
+    { id: 2, name: "Enis Rama", city: "Prizren", location: "Xhamia Sinan Pasha", image: "📖" },
+    { id: 3, name: "Blerim Musliu", city: "Prishtinë", location: "Xhamia Dardania", image: "🕌" },
+    { id: 4, name: "Ismail Bardhoshi", city: "Mitrovicë", location: "Xhamia Qendrore", image: "📚" },
+    { id: 5, name: "Rasim Haxha", city: "Ferizaj", location: "Xhamia Qendrore", image: "🤲" },
+    { id: 6, name: "Fadil Musliu", city: "Pejë", location: "Xhamia Bajrakli", image: "🕌" },
+    { id: 7, name: "Zeki Qerkezi", city: "Gjakovë", location: "Xhamia Hadum", image: "📖" },
+    { id: 8, name: "Llokman Hoxha", city: "Gjilan", location: "Xhamia e Madhe", image: "🕌" },
+    { id: 9, name: "Sulltan Pajaziti", city: "Vushtrri", location: "Xhamia Gazi Ali Beu", image: "🤲" },
+    { id: 10, name: "Alaudin Abazi", city: "Prishtinë", location: "Xhamia Arbëria", image: "📚" },
+    { id: 11, name: "Bajram Karabegu", city: "Prizren", location: "Xhamia e Re", image: "🕌" },
+    { id: 12, name: "Sadat Rrustemi", city: "Mitrovicë", location: "Xhamia e Vjetër", image: "📖" },
+    { id: 13, name: "Mustafa Terniqi", city: "Pejë", location: "Xhamia Qendrore", image: "🕌" },
+    { id: 14, name: "Sedat Islami", city: "Ferizaj", location: "Xhamia Sulltan Murat", image: "🤲" },
+    { id: 15, name: "Adnan Pallqa", city: "Gjakovë", location: "Xhamia e Re", image: "📚" },
+    { id: 16, name: "Jusuf Kastrati", city: "Prishtinë", location: "Xhamia Çarshia", image: "🕌" },
+    { id: 17, name: "Arsim Morina", city: "Gjilan", location: "Xhamia Fatih", image: "📖" },
+    { id: 18, name: "Abdurrahman Bejtullahu", city: "Vushtrri", location: "Xhamia e Madhe", image: "🕌" },
+    { id: 19, name: "Sami Fetahu", city: "Prizren", location: "Xhamia Gazi Mehmet Pasha", image: "🤲" },
+    { id: 20, name: "Agim Bekiri", city: "Mitrovicë", location: "Xhamia e Re", image: "📚" },
+    { id: 21, name: "Bekir Halimi", city: "Pejë", location: "Xhamia Bajrakli", image: "🕌" },
+    { id: 22, name: "Ahmed Kalaja", city: "Ferizaj", location: "Xhamia Arbëria", image: "📖" },
+    { id: 23, name: "Ferid Selimi", city: "Prishtinë", location: "Xhamia Lakriste", image: "🕌" },
+    { id: 24, name: "Besnik Llumnica", city: "Gjakovë", location: "Xhamia Çarshia", image: "🤲" },
+    { id: 25, name: "Ahmed Numanaj", city: "Gjilan", location: "Xhamia Qendrore", image: "📚" },
+    { id: 26, name: "Bilal Teqja", city: "Vushtrri", location: "Xhamia e Re", image: "🕌" },
+    { id: 27, name: "Uthman Agolli", city: "Prizren", location: "Xhamia Arasta", image: "📖" },
+    { id: 28, name: "Bledar Haxhiu", city: "Mitrovicë", location: "Xhamia Fatih", image: "🕌" },
+    { id: 29, name: "Justinian Topulli", city: "Pejë", location: "Xhamia e Madhe", image: "🤲" },
+    { id: 30, name: "Enes Goga", city: "Ferizaj", location: "Xhamia e Re", image: "📚" },
+    { id: 31, name: "Ernest Goga", city: "Prishtinë", location: "Xhamia Kalabria", image: "🕌" },
+    { id: 32, name: "Muhamed Broja", city: "Gjakovë", location: "Xhamia Qendrore", image: "📖" },
+    { id: 33, name: "Fidan Musliu", city: "Gjilan", location: "Xhamia e Re", image: "🕌" },
+    { id: 34, name: "Fitim Gerguri", city: "Vushtrri", location: "Xhamia Çarshia", image: "🤲" },
+    { id: 35, name: "Gazmir Sahara", city: "Prizren", location: "Xhamia e Vjetër", image: "📚" },
+    { id: 36, name: "Driton Xhezairi", city: "Mitrovicë", location: "Xhamia Sulltan Mehmet", image: "🕌" },
+    { id: 37, name: "Hadith Miftari", city: "Pejë", location: "Xhamia e Re", image: "📖" },
+    { id: 38, name: "Bashkim Bajrami", city: "Ferizaj", location: "Xhamia Fatih", image: "🕌" },
+    { id: 39, name: "Ulvi Fejzullahu", city: "Prishtinë", location: "Xhamia Mati", image: "🤲" },
+    { id: 40, name: "Muhamed Dermaku", city: "Gjakovë", location: "Xhamia e Madhe", image: "📚" },
+    { id: 41, name: "Hekuran Elshani", city: "Gjilan", location: "Xhamia Arbëria", image: "🕌" },
+    { id: 42, name: "Kujtim Ameti", city: "Vushtrri", location: "Xhamia Fatih", image: "📖" },
+    { id: 43, name: "Amel Kurteshi", city: "Prizren", location: "Xhamia Kalabria", image: "🕌" },
+    { id: 44, name: "Ali Ashani", city: "Mitrovicë", location: "Xhamia e Madhe", image: "🤲" },
+    { id: 45, name: "Bledar Mulla", city: "Pejë", location: "Xhamia Qendrore", image: "📚" },
+    { id: 46, name: "Valdet Gashi", city: "Ferizaj", location: "Xhamia e Madhe", image: "🕌" },
+    { id: 47, name: "Osman Bekteshi", city: "Prishtinë", location: "Xhamia e Re", image: "📖" },
+    { id: 48, name: "Irfan Salihu", city: "Gjakovë", location: "Xhamia Arbëria", image: "🕌" },
+    { id: 49, name: "Remzi Isaku", city: "Gjilan", location: "Xhamia Çarshia", image: "🤲" },
+    { id: 50, name: "Faruk Lohaj", city: "Vushtrri", location: "Xhamia Qendrore", image: "📚" },
+    { id: 51, name: "Mirsim Maliqi", city: "Prizren", location: "Xhamia Fatih", image: "🕌" },
+    { id: 52, name: "Shefqet Krasniqi", city: "Prishtinë", location: "Xhamia e Madhe", image: "📖" },
+    { id: 53, name: "Eroll Rexhepi", city: "Mitrovicë", location: "Xhamia Arbëria", image: "🕌" },
+    { id: 54, name: "Ruzhdi Buzuku", city: "Pejë", location: "Xhamia e Vjetër", image: "🤲" },
+    { id: 55, name: "Bali Sadiku", city: "Ferizaj", location: "Xhamia Çarshia", image: "📚" },
+    { id: 56, name: "Xheladin Leka", city: "Gjakovë", location: "Xhamia Fatih", image: "🕌" },
+    { id: 57, name: "Rafet Zaimi", city: "Gjilan", location: "Xhamia e Madhe", image: "📖" },
+    { id: 58, name: "Harith Selimi", city: "Vushtrri", location: "Xhamia e Re", image: "🕌" },
+    { id: 59, name: "Uvejs Ramadani", city: "Prizren", location: "Xhamia Qendrore", image: "🤲" },
+    { id: 60, name: "Blerim Murati", city: "Prishtinë", location: "Xhamia Ulpiana", image: "📚" },
+    { id: 61, name: "Usame Morina", city: "Mitrovicë", location: "Xhamia Çarshia", image: "🕌" },
+    { id: 62, name: "Irfan Jahiu", city: "Pejë", location: "Xhamia Fatih", image: "📖" },
+    { id: 63, name: "Ismail Asllani", city: "Ferizaj", location: "Xhamia e Re", image: "🕌" },
+    { id: 64, name: "Muharrem Ismaili", city: "Gjakovë", location: "Xhamia e Vjetër", image: "🤲" },
+    { id: 65, name: "Fatmir Latifi", city: "Gjilan", location: "Xhamia Sulltan Murat", image: "📚" },
+    { id: 66, name: "Amir Isaku", city: "Vushtrri", location: "Xhamia e Madhe", image: "🕌" },
+    { id: 67, name: "Sinan Rushiti", city: "Prizren", location: "Xhamia e Re", image: "📖" },
+    { id: 68, name: "Gazmend Mehmeti", city: "Prishtinë", location: "Xhamia Dardania", image: "🕌" },
+    { id: 69, name: "Gilman Kazazi", city: "Mitrovicë", location: "Xhamia e Re", image: "🤲" },
+    { id: 70, name: "Gentjan Mara", city: "Pejë", location: "Xhamia Arbëria", image: "📚" },
+    { id: 71, name: "Lulzim Susuri", city: "Ferizaj", location: "Xhamia Qendrore", image: "🕌" },
+    { id: 72, name: "Musli Zymberi", city: "Gjakovë", location: "Xhamia Çarshia", image: "📖" },
+    { id: 73, name: "Fidan Xhelili", city: "Gjilan", location: "Xhamia Fatih", image: "🕌" },
+    { id: 74, name: "Vesim Avdiu", city: "Vushtrri", location: "Xhamia Arbëria", image: "🤲" },
+    { id: 75, name: "Blerim Rexha", city: "Prizren", location: "Xhamia e Madhe", image: "📚" },
+    { id: 76, name: "Metush Mehmedi", city: "Prishtinë", location: "Xhamia Çarshia", image: "🕌" }
 ];
 
+// Sample schedule data for each Imam (this would come from API in production)
+const schedulesByImam = {
+    1: [ // Ekrem Avdiu
+        { date: "2025-11-24", time: "19:00", topic: "Akide - Besimi në Ditën e Fundit", description: "Një mësim rreth besimit në Ditën e Fundit dhe pasojat e saj në sjelljen e përditshme." }
+    ],
+    2: [ // Enis Rama
+        { date: "2025-11-23", time: "17:30", topic: "Fikhul Ibadet - Namazi dhe Rëndësia e Tij", description: "Diskutim rreth rregullave të namazit dhe rëndësisë së tij në jetën e një muslimani." }
+    ],
+    52: [ // Shefqet Krasniqi
+        { date: "2025-11-22", time: "18:00", topic: "Tefsiri i Kur'anit - Surja El-Bekare", description: "Një shpjegim i detajuar i Surës El-Bekare, duke u fokusuar në mësimet dhe udhëzimet e saj për jetën e përditshme." },
+        { date: "2025-11-28", time: "13:00", topic: "Hytbeja e së Xhumasë - Falënderimi ndaj Allahut", description: "Hytbe e veçantë e së Xhumasë që fokusohet në rëndësinë e falënderimit ndaj Allahut." }
+    ]
+    // More schedules can be added for other imams
+};
+
 // State management
-let filteredData = [...scheduleData];
+let filteredData = [...imamsData];
 let reminders = JSON.parse(localStorage.getItem('reminders')) || [];
 
 // DOM Elements
@@ -258,13 +109,13 @@ const modalBody = document.getElementById('modal-body');
 
 // Initialize App
 function init() {
-    // Sort by date
-    scheduleData.sort((a, b) => new Date(a.date + ' ' + a.time) - new Date(b.date + ' ' + b.time));
+    // Sort imams alphabetically
+    imamsData.sort((a, b) => a.name.localeCompare(b.name));
 
     // Populate filters
     populateFilters();
 
-    // Render schedule
+    // Render imams list
     renderSchedule();
 
     // Setup event listeners
@@ -276,23 +127,11 @@ function init() {
 
 // Populate filter dropdowns
 function populateFilters() {
-    const imams = [...new Set(scheduleData.map(item => item.imam))].sort();
-    const topics = [...new Set(scheduleData.map(item => item.topic.split(' - ')[0]))].sort();
-    const cities = [...new Set(scheduleData.map(item => item.city))].sort();
+    const cities = [...new Set(imamsData.map(item => item.city))].sort();
 
-    imams.forEach(imam => {
-        const option = document.createElement('option');
-        option.value = imam;
-        option.textContent = imam;
-        filterImam.appendChild(option);
-    });
-
-    topics.forEach(topic => {
-        const option = document.createElement('option');
-        option.value = topic;
-        option.textContent = topic;
-        filterTopic.appendChild(option);
-    });
+    // Clear existing options (keep first "all" option)
+    filterImam.innerHTML = '<option value="">Kërko Hoxhën...</option>';
+    filterCity.innerHTML = '<option value="">Të gjitha Qytetet</option>';
 
     cities.forEach(city => {
         const option = document.createElement('option');
@@ -300,9 +139,20 @@ function populateFilters() {
         option.textContent = city;
         filterCity.appendChild(option);
     });
+
+    // Change filter imam to a search field
+    filterImam.setAttribute('list', 'imams-list');
+    const datalist = document.createElement('datalist');
+    datalist.id = 'imams-list';
+    imamsData.forEach(imam => {
+        const option = document.createElement('option');
+        option.value = imam.name;
+        datalist.appendChild(option);
+    });
+    filterImam.parentNode.appendChild(datalist);
 }
 
-// Render schedule cards
+// Render imams list
 function renderSchedule() {
     scheduleList.innerHTML = '';
 
@@ -315,57 +165,55 @@ function renderSchedule() {
     scheduleList.style.display = 'grid';
     noResults.style.display = 'none';
 
-    filteredData.forEach(item => {
-        const card = createScheduleCard(item);
+    filteredData.forEach(imam => {
+        const card = createImamCard(imam);
         scheduleList.appendChild(card);
     });
 }
 
-// Create schedule card element
-function createScheduleCard(item) {
+// Create imam card element
+function createImamCard(imam) {
     const card = document.createElement('div');
     card.className = 'schedule-card';
 
-    const formattedDate = formatDate(item.date);
-    const isReminderSet = reminders.includes(item.id);
+    const schedules = schedulesByImam[imam.id] || [];
+    const scheduleCount = schedules.length;
+    const nextSchedule = schedules.length > 0 ? schedules[0] : null;
+
+    const mapLink = `https://maps.google.com/?q=${encodeURIComponent(imam.location + ' ' + imam.city)}`;
 
     card.innerHTML = `
-        <div class="card-image">${item.image}</div>
+        <div class="card-image">${imam.image}</div>
         <div class="card-content">
-            <h3 class="card-imam">${item.imam}</h3>
-            <p class="card-topic">${item.topic}</p>
+            <h3 class="card-imam">Hoxhë ${imam.name}</h3>
+            <p class="card-topic">${imam.location}</p>
             <div class="card-meta">
                 <div class="card-meta-item">
-                    <span class="card-meta-icon">📅</span>
-                    <span>${formattedDate}, ${item.time}</span>
+                    <span class="card-meta-icon">📍</span>
+                    <span>${imam.city}</span>
                 </div>
                 <div class="card-meta-item">
-                    <span class="card-meta-icon">📍</span>
-                    <a href="${item.mapLink}" target="_blank" class="card-location" onclick="event.stopPropagation()">
-                        ${item.location}, ${item.city}
-                    </a>
+                    <span class="card-meta-icon">📚</span>
+                    <span>${scheduleCount} ${scheduleCount === 1 ? 'Mësim' : 'Mësime'}</span>
                 </div>
+                ${nextSchedule ? `
+                <div class="card-meta-item">
+                    <span class="card-meta-icon">📅</span>
+                    <span>Tjetri: ${formatDate(nextSchedule.date)}</span>
+                </div>
+                ` : ''}
             </div>
             <div class="card-actions">
-                <button class="btn btn-secondary reminder-btn ${isReminderSet ? 'active' : ''}" data-id="${item.id}">
-                    ${isReminderSet ? '🔔 Aktive' : '🔕 Përkujtues'}
+                <button class="btn btn-primary view-schedule-btn">
+                    Shiko Orarin 👁️
                 </button>
             </div>
         </div>
     `;
 
-    // Click to open modal
-    card.addEventListener('click', (e) => {
-        if (!e.target.closest('.reminder-btn') && !e.target.closest('.card-location')) {
-            openModal(item);
-        }
-    });
-
-    // Reminder button
-    const reminderBtn = card.querySelector('.reminder-btn');
-    reminderBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        toggleReminder(item.id);
+    // Click to open modal with imam's schedule
+    card.addEventListener('click', () => {
+        openModal(imam);
     });
 
     return card;
@@ -382,16 +230,14 @@ function formatDate(dateString) {
 
 // Filter data
 function filterData() {
-    const imamValue = filterImam.value;
-    const topicValue = filterTopic.value;
+    const imamValue = filterImam.value.toLowerCase();
     const cityValue = filterCity.value;
 
-    filteredData = scheduleData.filter(item => {
-        const matchImam = !imamValue || item.imam === imamValue;
-        const matchTopic = !topicValue || item.topic.includes(topicValue);
+    filteredData = imamsData.filter(item => {
+        const matchImam = !imamValue || item.name.toLowerCase().includes(imamValue);
         const matchCity = !cityValue || item.city === cityValue;
 
-        return matchImam && matchTopic && matchCity;
+        return matchImam && matchCity;
     });
 
     renderSchedule();
@@ -399,8 +245,8 @@ function filterData() {
 
 // Setup event listeners
 function setupEventListeners() {
+    filterImam.addEventListener('input', filterData);
     filterImam.addEventListener('change', filterData);
-    filterTopic.addEventListener('change', filterData);
     filterCity.addEventListener('change', filterData);
 
     modalClose.addEventListener('click', closeModal);
@@ -411,45 +257,59 @@ function setupEventListeners() {
     });
 }
 
-// Open modal with details
-function openModal(item) {
-    const formattedDate = formatDate(item.date);
-    const isReminderSet = reminders.includes(item.id);
+// Open modal with imam's schedule
+function openModal(imam) {
+    const schedules = schedulesByImam[imam.id] || [];
+    const mapLink = `https://maps.google.com/?q=${encodeURIComponent(imam.location + ' ' + imam.city)}`;
+
+    let schedulesHTML = '';
+    if (schedules.length > 0) {
+        schedulesHTML = schedules.map(schedule => {
+            const formattedDate = formatDate(schedule.date);
+            return `
+                <div class="schedule-item">
+                    <div class="schedule-item-header">
+                        <h4>${schedule.topic}</h4>
+                        <span class="schedule-badge">${schedule.time}</span>
+                    </div>
+                    <p class="schedule-date">📅 ${formattedDate}</p>
+                    <p class="schedule-description">${schedule.description}</p>
+                </div>
+            `;
+        }).join('');
+    } else {
+        schedulesHTML = '<p class="no-schedule">Aktualisht nuk ka mësime të planifikuara.</p>';
+    }
 
     modalBody.innerHTML = `
-        <div class="modal-image">${item.image}</div>
+        <div class="modal-image">${imam.image}</div>
         <div class="modal-body">
-            <h2 class="modal-imam">${item.imam}</h2>
-            <p class="modal-topic">${item.topic}</p>
+            <h2 class="modal-imam">Hoxhë ${imam.name}</h2>
+            <p class="modal-topic">${imam.location}</p>
 
             <div class="modal-meta">
                 <div class="modal-meta-item">
-                    <span class="modal-meta-icon">📅</span>
-                    <span>${formattedDate}, ${item.time}</span>
+                    <span class="modal-meta-icon">📍</span>
+                    <span>${imam.city}</span>
                 </div>
                 <div class="modal-meta-item">
-                    <span class="modal-meta-icon">📍</span>
-                    <a href="${item.mapLink}" target="_blank" class="card-location">
-                        ${item.location}, ${item.city}
-                    </a>
+                    <span class="modal-meta-icon">📚</span>
+                    <span>${schedules.length} ${schedules.length === 1 ? 'Mësim' : 'Mësime'}</span>
                 </div>
             </div>
 
-            <p class="modal-description">${item.description}</p>
+            <h3 class="schedules-title">Orari i Mësimeve</h3>
+            <div class="schedules-list">
+                ${schedulesHTML}
+            </div>
 
             <div class="modal-actions">
-                <button class="btn btn-secondary reminder-btn-modal ${isReminderSet ? 'active' : ''}" data-id="${item.id}">
-                    ${isReminderSet ? '🔔 Përkujtues Aktiv' : '🔕 Aktivizo Përkujtues'}
-                </button>
-                <a href="${item.mapLink}" target="_blank" class="btn btn-primary">
+                <a href="${mapLink}" target="_blank" class="btn btn-primary">
                     📍 Shiko në Hartë
                 </a>
             </div>
         </div>
     `;
-
-    const reminderBtn = modalBody.querySelector('.reminder-btn-modal');
-    reminderBtn.addEventListener('click', () => toggleReminder(item.id));
 
     detailModal.classList.add('active');
     document.body.style.overflow = 'hidden';
@@ -461,69 +321,14 @@ function closeModal() {
     document.body.style.overflow = '';
 }
 
-// Toggle reminder
-function toggleReminder(id) {
-    const index = reminders.indexOf(id);
-
-    if (index > -1) {
-        reminders.splice(index, 1);
-    } else {
-        reminders.push(id);
-        scheduleNotification(id);
-    }
-
-    localStorage.setItem('reminders', JSON.stringify(reminders));
-    renderSchedule();
-
-    // Update modal if open
-    if (detailModal.classList.contains('active')) {
-        const item = scheduleData.find(item => item.id === id);
-        if (item) {
-            openModal(item);
-        }
-    }
-}
-
-// Request notification permission
+// Request notification permission (for future use)
 function requestNotificationPermission() {
     if ('Notification' in window && Notification.permission === 'default') {
         Notification.requestPermission();
     }
 }
 
-// Schedule notification
-function scheduleNotification(id) {
-    if ('Notification' in window && Notification.permission === 'granted') {
-        const item = scheduleData.find(item => item.id === id);
-        if (!item) return;
-
-        const eventTime = new Date(item.date + ' ' + item.time);
-        const reminderTime = new Date(eventTime.getTime() - 60 * 60 * 1000); // 1 hour before
-        const now = new Date();
-
-        if (reminderTime > now) {
-            const timeUntilReminder = reminderTime - now;
-
-            setTimeout(() => {
-                new Notification('Përkujtues për Mësim', {
-                    body: `${item.topic}\n${item.imam}\n${item.time} - ${item.location}, ${item.city}`,
-                    icon: '🕌',
-                    tag: `reminder-${id}`
-                });
-            }, timeUntilReminder);
-        }
-    }
-}
-
-// Check and show notifications for existing reminders
-function checkExistingReminders() {
-    reminders.forEach(id => {
-        scheduleNotification(id);
-    });
-}
-
 // Initialize app on load
 document.addEventListener('DOMContentLoaded', () => {
     init();
-    checkExistingReminders();
 });

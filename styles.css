@@ -360,6 +360,76 @@ body {
     gap: 12px;
 }
 
+/* Schedule Items in Modal */
+.schedules-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin: 24px 0 16px 0;
+    padding-top: 24px;
+    border-top: 1px solid var(--border-color);
+}
+
+.schedules-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.schedule-item {
+    padding: 16px;
+    background-color: var(--bg-light);
+    border-radius: var(--radius-sm);
+    border-left: 4px solid var(--primary-color);
+}
+
+.schedule-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.schedule-item-header h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin: 0;
+    flex: 1;
+}
+
+.schedule-badge {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 4px 12px;
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.schedule-date {
+    font-size: 14px;
+    color: var(--text-gray);
+    margin-bottom: 8px;
+}
+
+.schedule-description {
+    font-size: 14px;
+    color: var(--text-gray);
+    line-height: 1.5;
+    margin: 0;
+}
+
+.no-schedule {
+    text-align: center;
+    padding: 32px;
+    color: var(--text-light);
+    font-size: 15px;
+    font-style: italic;
+}
+
 /* No Results */
 .no-results {
     text-align: center;
