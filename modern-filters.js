@@ -2,6 +2,22 @@
 
 // Global variable for selected city
 let selectedCity = '';
+let searchDebounceTimer = null;
+
+// Debounce helper function für Performance
+function debounce(func, delay) {
+    return function(...args) {
+        clearTimeout(searchDebounceTimer);
+        searchDebounceTimer = setTimeout(() => func.apply(this, args), delay);
+    };
+}
+
+// Input Sanitization für XSS Prevention
+function sanitizeInput(input) {
+    const div = document.createElement('div');
+    div.textContent = input;
+    return div.innerHTML;
+}
 
 // Populate City Pills (replaces old dropdown)
 function populateCityPills() {
@@ -55,13 +71,18 @@ function setupModernFilters() {
     const searchInput = document.getElementById('filter-imam');
 
     if (searchInput && clearSearchBtn) {
+        // Debounced filter für Performance (300ms delay)
+        const debouncedFilter = debounce(() => {
+            filterData();
+        }, 300);
+
         searchInput.addEventListener('input', (e) => {
             if (e.target.value.length > 0) {
                 clearSearchBtn.style.display = 'flex';
             } else {
                 clearSearchBtn.style.display = 'none';
             }
-            filterData();
+            debouncedFilter();
         });
 
         clearSearchBtn.addEventListener('click', () => {
@@ -147,7 +168,8 @@ function setupModernFilters() {
 // Override filterData to use selectedCity instead of filterCity dropdown
 const originalFilterData = filterData;
 function filterData() {
-    const imamValue = document.getElementById('filter-imam')?.value.toLowerCase() || '';
+    const imamInput = document.getElementById('filter-imam')?.value || '';
+    const imamValue = sanitizeInput(imamInput).toLowerCase(); // XSS Prevention
 
     // Filtron të dhënat
     filteredData = imamsData.filter(item => {

@@ -242,14 +242,13 @@ let favoriteImams = [];
 let darkMode = false;
 let userCity = '';
 let userStats = { visited: [], streak: 0, badges: [] };
+let countdownIntervals = []; // Für Memory Leak Prevention
 
 // Elementet e DOM - Pamja e Imamëve
 const scheduleList = document.getElementById('schedule-list');
 const noResults = document.getElementById('no-results');
 const filterImam = document.getElementById('filter-imam');
-const filterCity = document.getElementById('filter-city');
-const sortBy = document.getElementById('sort-by');
-const onlyWithSchedulesToggle = document.getElementById('only-with-schedules');
+// OLD DROPDOWN ELEMENTS REMOVED - now using modern-filters.js
 const detailModal = document.getElementById('detail-modal');
 const modalClose = document.getElementById('modal-close');
 const modalBody = document.getElementById('modal-body');
@@ -590,29 +589,35 @@ function renderFeaturedImams() {
     });
 }
 
-// Populloj filtrat dropdown
+// Populloj filtrat - MOVED TO modern-filters.js
 function populateFilters() {
-    const cities = [...new Set(imamsData.map(item => item.city))].sort();
+    // This function is now handled by modern-filters.js
+    // Only call populateCityPills from modern-filters.js
+    if (typeof populateCityPills === 'function') {
+        populateCityPills();
+    }
+}
 
-    filterCity.innerHTML = '<option value="">Të gjitha Qytetet</option>';
+// Shfaq loading skeleton
+function showLoading() {
+    scheduleList.innerHTML = '';
+    scheduleList.style.display = 'grid';
+    noResults.style.display = 'none';
 
-    cities.forEach(city => {
-        const option = document.createElement('option');
-        option.value = city;
-        option.textContent = city;
-        filterCity.appendChild(option);
-    });
-
-    // Ndryshoj filtrin e imamit në fushë kërkimi
-    filterImam.setAttribute('list', 'imams-list');
-    const datalist = document.createElement('datalist');
-    datalist.id = 'imams-list';
-    imamsData.forEach(imam => {
-        const option = document.createElement('option');
-        option.value = imam.name;
-        datalist.appendChild(option);
-    });
-    filterImam.parentNode.appendChild(datalist);
+    // Shfaq 6 skeleton cards
+    for (let i = 0; i < 6; i++) {
+        const skeleton = document.createElement('div');
+        skeleton.className = 'schedule-card skeleton';
+        skeleton.innerHTML = `
+            <div class="skeleton-image"></div>
+            <div class="skeleton-content">
+                <div class="skeleton-line skeleton-title"></div>
+                <div class="skeleton-line skeleton-subtitle"></div>
+                <div class="skeleton-line skeleton-text"></div>
+            </div>
+        `;
+        scheduleList.appendChild(skeleton);
+    }
 }
 
 // Shfaq listën e imamëve
@@ -714,26 +719,9 @@ function formatDate(dateString) {
     return `${days[date.getDay()]}, ${date.getDate()} ${months[date.getMonth()]}`;
 }
 
-// Filtron dhe rendit të dhënat
-function filterData() {
-    const imamValue = filterImam.value.toLowerCase();
-    const cityValue = filterCity.value;
-
-    // Filtron të dhënat
-    filteredData = imamsData.filter(item => {
-        const matchImam = !imamValue || item.name.toLowerCase().includes(imamValue);
-        const matchCity = !cityValue || item.city === cityValue;
-        const matchSchedules = !onlyWithSchedules || (schedulesByImam[item.id] && schedulesByImam[item.id].length > 0);
-        const matchFavorites = !onlyFavorites || isFavorite(item.id);
-
-        return matchImam && matchCity && matchSchedules && matchFavorites;
-    });
-
-    // Rendit të dhënat
-    sortData();
-
-    renderSchedule();
-}
+// Filtron dhe rendit të dhënat - THIS IS NOW IN modern-filters.js
+// This function is overridden by modern-filters.js
+// Keep this as fallback but modern-filters.js version will be used
 
 // Rendit të dhënat sipas kritereve të zgjedhura
 function sortData() {
@@ -925,7 +913,8 @@ function startCountdown(element, targetTime) {
     };
 
     updateCountdown();
-    setInterval(updateCountdown, 60000); // Update çdo minutë
+    const intervalId = setInterval(updateCountdown, 60000); // Update çdo minutë
+    countdownIntervals.push(intervalId); // Memory Leak Prevention
 }
 
 // ==================== CALENDAR EXPORT ====================
@@ -1366,6 +1355,10 @@ function openModal(imam) {
 
 // Mbyll modalin
 function closeModal() {
+    // Cleanup intervals për Memory Leak Prevention
+    countdownIntervals.forEach(intervalId => clearInterval(intervalId));
+    countdownIntervals = [];
+
     detailModal.classList.remove('active');
     document.body.style.overflow = '';
 }
@@ -1574,29 +1567,11 @@ function openBlogPostModal(post) {
 
 // Zgjeron setupEventListeners për të përfshirë navigacionin dhe blogun
 function setupEventListeners() {
-    // Event listeners për imamët (ekzistues)
-    filterImam.addEventListener('input', filterData);
-    filterImam.addEventListener('change', filterData);
-    filterCity.addEventListener('change', filterData);
+    // OLD FILTER EVENT LISTENERS REMOVED - now handled by modern-filters.js
+    // Filter/sort event listeners are in modern-filters.js setupModernFilters()
 
-    sortBy.addEventListener('change', (e) => {
-        currentSort = e.target.value;
-        filterData();
-    });
-
-    onlyWithSchedulesToggle.addEventListener('change', (e) => {
-        onlyWithSchedules = e.target.checked;
-        filterData();
-    });
-
-    // Favoriten filter
-    const onlyFavoritesToggle = document.getElementById('only-favorites');
-    if (onlyFavoritesToggle) {
-        onlyFavoritesToggle.addEventListener('change', (e) => {
-            onlyFavorites = e.target.checked;
-            filterData();
-        });
-    }
+    // Favoriten filter - DEPRECATED (now in modern-filters.js)
+    // Removed old filter/sort dropdown listeners
 
     // Dark mode toggle
     const darkModeToggle = document.getElementById('dark-mode-toggle');
@@ -1663,5 +1638,35 @@ function setupEventListeners() {
 
 // Inicializo aplikacionin kur ngarkohet faqja
 document.addEventListener('DOMContentLoaded', () => {
-    init();
+    try {
+        init();
+    } catch (error) {
+        console.error('Gabim gjatë inicializimit:', error);
+        showToast('Gabim gjatë ngarkimit të faqes. Ju lutemi rifreshoni faqen.', 'error');
+    }
+});
+
+// ==================== GLOBAL ERROR HANDLING ====================
+
+// Global error handler për të gjitha gabimet e pa-kapura
+window.addEventListener('error', (event) => {
+    console.error('Global Error:', event.error);
+    showToast('Ndodhi një gabim. Ju lutemi provoni përsëri.', 'error');
+    return false; // Prevent default error handling
+});
+
+// Unhandled promise rejection handler
+window.addEventListener('unhandledrejection', (event) => {
+    console.error('Unhandled Promise Rejection:', event.reason);
+    showToast('Ndodhi një gabim gjatë procesimit. Ju lutemi provoni përsëri.', 'error');
+    event.preventDefault(); // Prevent default error handling
+});
+
+// Offline/Online Detection
+window.addEventListener('offline', () => {
+    showToast('Nuk jeni të lidhur me internetin. Disa funksione mund të mos funksionojnë.', 'info');
+});
+
+window.addEventListener('online', () => {
+    showToast('Lidhja me internetin u rivendos!', 'success');
 });
