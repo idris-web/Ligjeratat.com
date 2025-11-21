@@ -93,12 +93,79 @@ const schedulesByImam = {
     // Më shumë orarë mund të shtohen për imamë të tjerë
 };
 
+// Të dhënat e artikujve të blogut
+const blogPosts = [
+    {
+        id: 1,
+        imamId: 52, // Shefqet Krasniqi
+        title: "Rëndësia e Tefsirit në Jetën e Përditshme",
+        category: "tefsir",
+        excerpt: "Tefsiri i Kur'anit nuk është vetëm një studim shkencor, por një udhëzues praktik për jetën tonë të përditshme. Në këtë artikull shqyrtojmë mënyrat se si mund ta aplikojmë kuptimin e ajeteve në jetën tonë.",
+        content: "Kur'ani është libri i Allahut që na udhëzon në çdo aspekt të jetës. Tefsiri na ndihmon të kuptojmë më thellë mesazhin hyjnor dhe ta zbatojmë atë në situata të ndryshme. Çdo ajet ka një mësim të thellë që mund të na ndryshojë jetën nëse e kuptojmë siç duhet.",
+        date: "2025-11-15",
+        readTime: "8 min"
+    },
+    {
+        id: 2,
+        imamId: 1, // Ekrem Avdiu
+        title: "Besimi në Ditën e Gjykimit dhe Ndikimi në Sjelljen Tonë",
+        category: "akide",
+        excerpt: "Si ndikon besimi në Ditën e Fundit në sjelljen tonë të përditshme? Një analizë e thellë e lidhjes mes besimit dhe veprës.",
+        content: "Besimi në Ditën e Gjykimit është shtyllë thelbësore e besimit islam. Ky besim nuk është vetëm një doktrinë teorike, por ka ndikim të drejtpërdrejtë në sjelljen tonë. Kur besojmë se do të japim llogari për çdo vepër, jemi më të kujdesshëm në zgjedhjet tona.",
+        date: "2025-11-18",
+        readTime: "10 min"
+    },
+    {
+        id: 3,
+        imamId: 2, // Enis Rama
+        title: "Namazi: Shtyllë e Besimit dhe Dritë e Shpirtit",
+        category: "fikh",
+        excerpt: "Namazi nuk është thjesht një ritual, por një komunikim i drejtpërdrejtë me Allahun. Mësoni rreth thellësisë së namazit dhe ndikimit të tij në jetën tonë.",
+        content: "Namazi është shtyllë e fesë dhe dallues mes muslimanit dhe jomuslimanit. Në namaz, robërueshëm para Krijuesit tonë, i lëmë pas të gjitha shqetësimet e kësaj bote. Kjo komunikim i pastër na sjell qetësi, forcë dhe udhëzim për jetën tonë.",
+        date: "2025-11-12",
+        readTime: "7 min"
+    },
+    {
+        id: 4,
+        imamId: 52, // Shefqet Krasniqi
+        title: "Jeta e Pejgamberit Muhamed (s.a.v.s) si Model për Ne",
+        category: "sira",
+        excerpt: "Historia e jetës së Pejgamberit Muhamed (s.a.v.s) është burim i pasur mësimesh për çdo musliman. Si mund ta marrim shembull Pejgamberin në jetën tonë moderne?",
+        content: "Pejgamberi Muhamed (s.a.v.s) është shembulli më i përsosur i qenies njerëzore. Jeta e tij është plot me mësime që mund t'i aplikojmë në çdo kohë. Nga përulësia e tij, drejtësia, durimi, dhe mëshira - çdo aspekt i jetës së tij është një udhëzues për ne.",
+        date: "2025-11-10",
+        readTime: "12 min"
+    },
+    {
+        id: 5,
+        imamId: 1, // Ekrem Avdiu
+        title: "Etika Islame në Marrëdhëniet Familjare",
+        category: "etika",
+        excerpt: "Familja është themeli i shoqërisë islame. Mësoni rreth etikës islame që duhet të udhëheqë marrëdhëniet tona me prindërit, bashkëshortët dhe fëmijët.",
+        content: "Islami i kushton rëndësi të veçantë familjes. Marrëdhëniet familjare duhet të bazohen në dashuri, respekt, dhe mëshirë. Pejgamberi (s.a.v.s) ka thënë: 'Më i miri prej jush është ai që është më i mirë me familjen e vet.' Kjo na mëson se sjellja jonë në shtëpi është një reflektim i vërtetë i besimit tonë.",
+        date: "2025-11-08",
+        readTime: "9 min"
+    },
+    {
+        id: 6,
+        imamId: 2, // Enis Rama
+        title: "Pastrimi Shpirtëror: Zekata dhe Rëndësia e Saj",
+        category: "fikh",
+        excerpt: "Zekata është njëri nga pesë shtyllat e Islamit dhe ka rëndësi të madhe në pastrimin e shpirtit dhe ndihmën ndaj të varfërve.",
+        content: "Zekata nuk është thjesht një detyrim financiar, por një mjet pastrimi shpirtëror. Duke dhënë nga pasuria jonë për hir të Allahut, ne pastrojmë zemrat tona nga lakmia dhe zhvillojmë ndjenjën e solidaritetit me të tjerët. Zekata është një sistemë drejtësie sociale që siguron që pasuria të qarkulojë në të gjithë shoqërinë.",
+        date: "2025-11-05",
+        readTime: "8 min"
+    }
+];
+
 // Menaxhimi i gjendjes
 let filteredData = [...imamsData];
 let currentSort = 'name';
 let onlyWithSchedules = false;
+let currentView = 'imams'; // 'imams', 'blog', 'about'
+let currentBlogCategory = 'all';
+let filteredBlogPosts = [...blogPosts];
 
-// Elementet e DOM
+// Elementet e DOM - Pamja e Imamëve
 const scheduleList = document.getElementById('schedule-list');
 const noResults = document.getElementById('no-results');
 const filterImam = document.getElementById('filter-imam');
@@ -108,6 +175,16 @@ const onlyWithSchedulesToggle = document.getElementById('only-with-schedules');
 const detailModal = document.getElementById('detail-modal');
 const modalClose = document.getElementById('modal-close');
 const modalBody = document.getElementById('modal-body');
+
+// Elementet e DOM - Pamja e Views
+const imamsView = document.getElementById('imams-view');
+const blogView = document.getElementById('blog-view');
+const aboutView = document.getElementById('about-view');
+
+// Elementet e DOM - Blog
+const blogList = document.getElementById('blog-list');
+const noBlogResults = document.getElementById('no-blog-results');
+const blogFilterBtns = document.querySelectorAll('.blog-filter-btn');
 
 // Inicializimi i Aplikacionit
 function init() {
@@ -266,29 +343,7 @@ function sortData() {
     }
 }
 
-// Vendos dëgjuesit e ngjarjeve
-function setupEventListeners() {
-    filterImam.addEventListener('input', filterData);
-    filterImam.addEventListener('change', filterData);
-    filterCity.addEventListener('change', filterData);
-
-    sortBy.addEventListener('change', (e) => {
-        currentSort = e.target.value;
-        filterData();
-    });
-
-    onlyWithSchedulesToggle.addEventListener('change', (e) => {
-        onlyWithSchedules = e.target.checked;
-        filterData();
-    });
-
-    modalClose.addEventListener('click', closeModal);
-    detailModal.addEventListener('click', (e) => {
-        if (e.target === detailModal) {
-            closeModal();
-        }
-    });
-}
+// Vendos dëgjuesit e ngjarjeve (shih poshtë për implementimin e plotë)
 
 // Hap modalin me orarin e imamit
 function openModal(imam) {
@@ -354,6 +409,253 @@ function openModal(imam) {
 function closeModal() {
     detailModal.classList.remove('active');
     document.body.style.overflow = '';
+}
+
+// ==================== BLOG FUNCTIONS ====================
+
+// Ndërron pamjen (imams, blog, about)
+function switchView(viewName) {
+    currentView = viewName;
+
+    // Fsheh të gjitha pamjet
+    imamsView.style.display = 'none';
+    blogView.style.display = 'none';
+    aboutView.style.display = 'none';
+
+    // Shfaq pamjen e zgjedhur
+    switch(viewName) {
+        case 'imams':
+            imamsView.style.display = 'block';
+            break;
+        case 'blog':
+            blogView.style.display = 'block';
+            renderBlogPosts();
+            break;
+        case 'about':
+            aboutView.style.display = 'block';
+            break;
+    }
+
+    // Përditëso footer navigation
+    updateFooterNavigation();
+}
+
+// Përditëson footer navigation active state
+function updateFooterNavigation() {
+    const footerLinks = document.querySelectorAll('.footer-link');
+    footerLinks.forEach(link => {
+        link.classList.remove('active');
+        const href = link.getAttribute('href');
+        if ((href === '#' || href === '#imams') && currentView === 'imams') {
+            link.classList.add('active');
+        } else if (href === '#blog' && currentView === 'blog') {
+            link.classList.add('active');
+        } else if (href === '#about' && currentView === 'about') {
+            link.classList.add('active');
+        }
+    });
+}
+
+// Filtron artikujt e blogut sipas kategorisë
+function filterBlogPosts(category) {
+    currentBlogCategory = category;
+
+    if (category === 'all') {
+        filteredBlogPosts = [...blogPosts];
+    } else {
+        filteredBlogPosts = blogPosts.filter(post => post.category === category);
+    }
+
+    renderBlogPosts();
+
+    // Përditëso butonin aktiv
+    blogFilterBtns.forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.getAttribute('data-category') === category) {
+            btn.classList.add('active');
+        }
+    });
+}
+
+// Shfaq listën e artikujve të blogut
+function renderBlogPosts() {
+    blogList.innerHTML = '';
+
+    if (filteredBlogPosts.length === 0) {
+        blogList.style.display = 'none';
+        noBlogResults.style.display = 'block';
+        return;
+    }
+
+    blogList.style.display = 'grid';
+    noBlogResults.style.display = 'none';
+
+    // Rendit artikujt sipas datës (më të rejat së pari)
+    const sortedPosts = [...filteredBlogPosts].sort((a, b) => new Date(b.date) - new Date(a.date));
+
+    sortedPosts.forEach(post => {
+        const card = createBlogCard(post);
+        blogList.appendChild(card);
+    });
+}
+
+// Krijon kartelën e artikullit të blogut
+function createBlogCard(post) {
+    const imam = imamsData.find(i => i.id === post.imamId);
+    const card = document.createElement('div');
+    card.className = 'blog-card';
+
+    const categoryNames = {
+        'tefsir': 'Tefsir',
+        'fikh': 'Fikh',
+        'akide': 'Akide',
+        'sira': 'Sira',
+        'etika': 'Etikë'
+    };
+
+    const categoryIcons = {
+        'tefsir': 'fa-book-quran',
+        'fikh': 'fa-hands-praying',
+        'akide': 'fa-heart',
+        'sira': 'fa-mosque',
+        'etika': 'fa-handshake'
+    };
+
+    card.innerHTML = `
+        <div class="blog-card-header">
+            <span class="blog-category">
+                <i class="fas ${categoryIcons[post.category]}"></i>
+                ${categoryNames[post.category]}
+            </span>
+            <span class="blog-read-time">
+                <i class="fas fa-clock"></i>
+                ${post.readTime}
+            </span>
+        </div>
+        <h3 class="blog-card-title">${post.title}</h3>
+        <p class="blog-card-excerpt">${post.excerpt}</p>
+        <div class="blog-card-footer">
+            <div class="blog-card-author">
+                <img src="${imam.image}" alt="${imam.name}" class="blog-author-avatar">
+                <div class="blog-author-info">
+                    <span class="blog-author-name">Hoxhë ${imam.name}</span>
+                    <span class="blog-post-date">${formatDate(post.date)}</span>
+                </div>
+            </div>
+            <button class="btn btn-secondary blog-read-btn">
+                <i class="fas fa-book-open"></i> Lexo
+            </button>
+        </div>
+    `;
+
+    // Event listener për të hapur artikullin
+    card.querySelector('.blog-read-btn').addEventListener('click', (e) => {
+        e.stopPropagation();
+        openBlogPostModal(post);
+    });
+
+    card.addEventListener('click', () => {
+        openBlogPostModal(post);
+    });
+
+    return card;
+}
+
+// Hap modalin me artikullin e plotë të blogut
+function openBlogPostModal(post) {
+    const imam = imamsData.find(i => i.id === post.imamId);
+
+    const categoryNames = {
+        'tefsir': 'Tefsir',
+        'fikh': 'Fikh',
+        'akide': 'Akide',
+        'sira': 'Sira',
+        'etika': 'Etikë'
+    };
+
+    modalBody.innerHTML = `
+        <div class="modal-body">
+            <div class="blog-post-header">
+                <span class="blog-category-badge">${categoryNames[post.category]}</span>
+                <h2 class="blog-post-title">${post.title}</h2>
+                <div class="blog-post-meta">
+                    <div class="blog-post-author">
+                        <img src="${imam.image}" alt="${imam.name}" class="blog-author-avatar-large">
+                        <div>
+                            <div class="blog-author-name-large">Hoxhë ${imam.name}</div>
+                            <div class="blog-post-date-large">${formatDate(post.date)} • ${post.readTime}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="blog-post-content">
+                <p class="blog-post-excerpt-large">${post.excerpt}</p>
+                <div class="blog-post-body">${post.content}</div>
+            </div>
+
+            <div class="blog-post-footer">
+                <button class="btn btn-primary" onclick="switchView('blog'); closeModal();">
+                    <i class="fas fa-arrow-left"></i> Kthehu te Artikujt
+                </button>
+            </div>
+        </div>
+    `;
+
+    detailModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+// ==================== SETUP EVENT LISTENERS ====================
+
+// Zgjeron setupEventListeners për të përfshirë navigacionin dhe blogun
+function setupEventListeners() {
+    // Event listeners për imamët (ekzistues)
+    filterImam.addEventListener('input', filterData);
+    filterImam.addEventListener('change', filterData);
+    filterCity.addEventListener('change', filterData);
+
+    sortBy.addEventListener('change', (e) => {
+        currentSort = e.target.value;
+        filterData();
+    });
+
+    onlyWithSchedulesToggle.addEventListener('change', (e) => {
+        onlyWithSchedules = e.target.checked;
+        filterData();
+    });
+
+    modalClose.addEventListener('click', closeModal);
+    detailModal.addEventListener('click', (e) => {
+        if (e.target === detailModal) {
+            closeModal();
+        }
+    });
+
+    // Event listeners për navigacionin në footer
+    const footerLinks = document.querySelectorAll('.footer-link');
+    footerLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const href = link.getAttribute('href');
+
+            if (href === '#' || href === '#imams') {
+                switchView('imams');
+            } else if (href === '#blog') {
+                switchView('blog');
+            } else if (href === '#about') {
+                switchView('about');
+            }
+        });
+    });
+
+    // Event listeners për filtrat e blogut
+    blogFilterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const category = btn.getAttribute('data-category');
+            filterBlogPosts(category);
+        });
+    });
 }
 
 // Inicializo aplikacionin kur ngarkohet faqja

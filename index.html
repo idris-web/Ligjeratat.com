@@ -45,12 +45,79 @@
     <!-- Main Content -->
     <main class="main">
         <div class="container">
-            <div id="schedule-list" class="schedule-grid">
-                <!-- Schedule cards will be inserted here -->
+            <!-- Pamja e Imamëve (Default) -->
+            <div id="imams-view" class="view-content">
+                <div id="schedule-list" class="schedule-grid">
+                    <!-- Schedule cards will be inserted here -->
+                </div>
+
+                <div id="no-results" class="no-results" style="display: none;">
+                    <p>Nuk ka imam që përputhen me filtrat e zgjedhur.</p>
+                </div>
             </div>
 
-            <div id="no-results" class="no-results" style="display: none;">
-                <p>Nuk ka mësime që përputhen me filtrat e zgjedhur.</p>
+            <!-- Pamja e Blogut (E fshehur) -->
+            <div id="blog-view" class="view-content" style="display: none;">
+                <div class="blog-header">
+                    <h2 class="blog-title">Artikuj dhe Mësime</h2>
+                    <p class="blog-subtitle">Lexoni artikuj të thellë nga imamët tanë dhe mësoni më shumë rreth Islamit</p>
+                </div>
+
+                <div class="blog-filters">
+                    <button class="blog-filter-btn active" data-category="all">
+                        <i class="fas fa-th"></i> Të gjitha
+                    </button>
+                    <button class="blog-filter-btn" data-category="tefsir">
+                        <i class="fas fa-book-quran"></i> Tefsir
+                    </button>
+                    <button class="blog-filter-btn" data-category="fikh">
+                        <i class="fas fa-hands-praying"></i> Fikh
+                    </button>
+                    <button class="blog-filter-btn" data-category="akide">
+                        <i class="fas fa-heart"></i> Akide
+                    </button>
+                    <button class="blog-filter-btn" data-category="sira">
+                        <i class="fas fa-mosque"></i> Sira
+                    </button>
+                    <button class="blog-filter-btn" data-category="etika">
+                        <i class="fas fa-handshake"></i> Etikë
+                    </button>
+                </div>
+
+                <div id="blog-list" class="blog-grid">
+                    <!-- Blog posts will be inserted here -->
+                </div>
+
+                <div id="no-blog-results" class="no-results" style="display: none;">
+                    <p>Nuk ka artikuj në këtë kategori.</p>
+                </div>
+            </div>
+
+            <!-- Pamja "Rreth Platformës" (E fshehur) -->
+            <div id="about-view" class="view-content" style="display: none;">
+                <div class="about-content">
+                    <h2>Rreth Platformës</h2>
+                    <p class="about-text">
+                        <strong>Ligjeratat.com</strong> është një platformë e dedikuar për të ndihmuar komunitetin mysliman në Kosovë të gjejë dhe të ndjekë mësimet e imamëve më të nderuar.
+                    </p>
+                    <p class="about-text">
+                        Misioni ynë është të bëjmë të arritshëm dijen islame për të gjithë, duke u dhënë mundësinë njerëzve të gjejnë mësime të cilësisë së lartë pranë tyre.
+                    </p>
+
+                    <h3>Si ta Përdorni Platformën</h3>
+                    <ul class="about-list">
+                        <li><i class="fas fa-search"></i> Kërkoni imamë sipas emrit ose qytetit</li>
+                        <li><i class="fas fa-filter"></i> Filtoni sipas preferencave tuaja</li>
+                        <li><i class="fas fa-eye"></i> Shikoni orarin e mësimeve të çdo imami</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Gjeni lokacionin në hartë</li>
+                        <li><i class="fas fa-book"></i> Lexoni artikuj të thellë në Blog</li>
+                    </ul>
+
+                    <h3>Kontakti</h3>
+                    <p class="about-text">
+                        Për pyetje, sugjerime ose për të shtuar imamë të rinj në platformë, na kontaktoni në: <strong>info@ligjeratat.com</strong>
+                    </p>
+                </div>
             </div>
         </div>
     </main>
@@ -70,6 +137,7 @@
         <div class="container">
             <nav class="footer-nav">
                 <a href="#" class="footer-link active">Orari</a>
+                <a href="#blog" class="footer-link">Artikuj</a>
                 <a href="#about" class="footer-link">Rreth Platformës</a>
             </nav>
             <p class="footer-text">© 2025 Ligjeratat.com - Orari i Mësimeve të Imamëve</p>
