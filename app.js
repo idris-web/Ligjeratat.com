@@ -1,8 +1,34 @@
 // Lista e plotë e të gjithë 76 Imamëve në Kosovë
 const imamsData = [
-    { id: 1, name: "Ekrem Avdiu", city: "Prishtinë", location: "Xhamia e Madhe", image: "https://ui-avatars.com/api/?name=Ekrem+Avdiu&size=400&background=2c5f2d&color=fff&bold=true" },
-    { id: 2, name: "Enis Rama", city: "Prizren", location: "Xhamia Sinan Pasha", image: "https://ui-avatars.com/api/?name=Enis+Rama&size=400&background=2c5f2d&color=fff&bold=true" },
-    { id: 3, name: "Blerim Musliu", city: "Prishtinë", location: "Xhamia Dardania", image: "https://ui-avatars.com/api/?name=Blerim+Musliu&size=400&background=2c5f2d&color=fff&bold=true" },
+    {
+        id: 1,
+        name: "Ekrem Avdiu",
+        city: "Prishtinë",
+        location: "Xhamia e Madhe",
+        image: "https://ui-avatars.com/api/?name=Ekrem+Avdiu&size=400&background=2c5f2d&color=fff&bold=true",
+        bio: "Imam me përvojë 15 vjeçare në mësimin e shkencave islame.",
+        specialization: ["Akide", "Tefsir"],
+        education: "Shkenca Islame, Universiteti i Medinës"
+    },
+    {
+        id: 2,
+        name: "Enis Rama",
+        city: "Prizren",
+        location: "Xhamia Sinan Pasha",
+        image: "https://ui-avatars.com/api/?name=Enis+Rama&size=400&background=2c5f2d&color=fff&bold=true",
+        bio: "Specialist në fikh dhe jurisprudencë islame.",
+        specialization: ["Fikh", "Hadith"],
+        education: "Studime Islame, Kajro"
+    },
+    {
+        id: 3,
+        name: "Blerim Musliu",
+        city: "Prishtinë",
+        location: "Xhamia Dardania",
+        image: "https://ui-avatars.com/api/?name=Blerim+Musliu&size=400&background=2c5f2d&color=fff&bold=true",
+        bio: "Fokusi kryesor në edukim dhe përgatitje të ri të rinjve.",
+        specialization: ["Edukim Islam", "Etikë"]
+    },
     { id: 4, name: "Ismail Bardhoshi", city: "Mitrovicë", location: "Xhamia Qendrore", image: "https://ui-avatars.com/api/?name=Ismail+Bardhoshi&size=400&background=2c5f2d&color=fff&bold=true" },
     { id: 5, name: "Rasim Haxha", city: "Ferizaj", location: "Xhamia Qendrore", image: "https://ui-avatars.com/api/?name=Rasim+Haxha&size=400&background=2c5f2d&color=fff&bold=true" },
     { id: 6, name: "Fadil Musliu", city: "Pejë", location: "Xhamia Bajrakli", image: "https://ui-avatars.com/api/?name=Fadil+Musliu&size=400&background=2c5f2d&color=fff&bold=true" },
@@ -51,7 +77,16 @@ const imamsData = [
     { id: 49, name: "Remzi Isaku", city: "Gjilan", location: "Xhamia Çarshia", image: "https://ui-avatars.com/api/?name=Remzi+Isaku&size=400&background=2c5f2d&color=fff&bold=true" },
     { id: 50, name: "Faruk Lohaj", city: "Vushtrri", location: "Xhamia Qendrore", image: "https://ui-avatars.com/api/?name=Faruk+Lohaj&size=400&background=2c5f2d&color=fff&bold=true" },
     { id: 51, name: "Mirsim Maliqi", city: "Prizren", location: "Xhamia Fatih", image: "https://ui-avatars.com/api/?name=Mirsim+Maliqi&size=400&background=2c5f2d&color=fff&bold=true" },
-    { id: 52, name: "Shefqet Krasniqi", city: "Prishtinë", location: "Xhamia e Madhe", image: "https://ui-avatars.com/api/?name=Shefqet+Krasniqi&size=400&background=2c5f2d&color=fff&bold=true" },
+    {
+        id: 52,
+        name: "Shefqet Krasniqi",
+        city: "Prishtinë",
+        location: "Xhamia e Madhe",
+        image: "https://ui-avatars.com/api/?name=Shefqet+Krasniqi&size=400&background=2c5f2d&color=fff&bold=true",
+        bio: "Imam i njohur për mësimet e tij të thella në tefsir dhe sira.",
+        specialization: ["Tefsir", "Sira", "Hytbe"],
+        education: "Fakulteti i Studimeve Islame, Prishtinë"
+    },
     { id: 53, name: "Eroll Rexhepi", city: "Mitrovicë", location: "Xhamia Arbëria", image: "https://ui-avatars.com/api/?name=Eroll+Rexhepi&size=400&background=2c5f2d&color=fff&bold=true" },
     { id: 54, name: "Ruzhdi Buzuku", city: "Pejë", location: "Xhamia e Vjetër", image: "https://ui-avatars.com/api/?name=Ruzhdi+Buzuku&size=400&background=2c5f2d&color=fff&bold=true" },
     { id: 55, name: "Bali Sadiku", city: "Ferizaj", location: "Xhamia Çarshia", image: "https://ui-avatars.com/api/?name=Bali+Sadiku&size=400&background=2c5f2d&color=fff&bold=true" },
@@ -556,6 +591,100 @@ function showShareModal(url, text) {
     });
 }
 
+// ==================== LIVE STATUS & COUNTDOWN ====================
+
+function getScheduleStatus(schedule) {
+    const now = new Date();
+    const scheduleDateTime = new Date(`${schedule.date}T${schedule.time}`);
+    const diff = scheduleDateTime - now;
+    const diffMinutes = Math.floor(diff / 60000);
+    const diffHours = Math.floor(diffMinutes / 60);
+    const diffDays = Math.floor(diffHours / 24);
+
+    // LIVE (innerhalb von 90 Minuten nach Start)
+    if (diff < 0 && Math.abs(diffMinutes) < 90) {
+        return {
+            type: 'live',
+            label: 'LIVE TANI',
+            icon: 'fa-circle',
+            color: '#e74c3c'
+        };
+    }
+
+    // Beginnt bald (innerhalb von 2 Stunden)
+    if (diff > 0 && diffMinutes <= 120) {
+        const minutesLeft = diffMinutes % 60;
+        const hoursLeft = Math.floor(diffMinutes / 60);
+        let timeText = '';
+
+        if (hoursLeft > 0) {
+            timeText = `Fillon në ${hoursLeft}h ${minutesLeft}min`;
+        } else if (diffMinutes > 0) {
+            timeText = `Fillon në ${diffMinutes} minuta`;
+        }
+
+        return {
+            type: 'soon',
+            label: timeText,
+            icon: 'fa-clock',
+            color: '#f39c12',
+            countdown: true,
+            targetTime: scheduleDateTime
+        };
+    }
+
+    // Kommende Veranstaltungen
+    if (diff > 0) {
+        let timeText = '';
+        if (diffDays > 0) {
+            timeText = `${diffDays} ${diffDays === 1 ? 'ditë' : 'ditë'}`;
+        } else if (diffHours > 0) {
+            timeText = `${diffHours} ${diffHours === 1 ? 'orë' : 'orë'}`;
+        }
+
+        return {
+            type: 'upcoming',
+            label: timeText ? `Pas ${timeText}` : 'Sot',
+            icon: 'fa-calendar',
+            color: '#27ae60'
+        };
+    }
+
+    // Vorbei
+    return {
+        type: 'past',
+        label: 'E kaluar',
+        icon: 'fa-check',
+        color: '#95a5a6'
+    };
+}
+
+function startCountdown(element, targetTime) {
+    const updateCountdown = () => {
+        const now = new Date();
+        const diff = targetTime - now;
+        const diffMinutes = Math.floor(diff / 60000);
+
+        if (diffMinutes <= 0) {
+            element.innerHTML = '<i class="fas fa-circle"></i> LIVE TANI';
+            element.className = 'schedule-status-badge live';
+            return;
+        }
+
+        const hours = Math.floor(diffMinutes / 60);
+        const minutes = diffMinutes % 60;
+
+        if (hours > 0) {
+            element.innerHTML = `<i class="fas fa-clock"></i> Fillon në ${hours}h ${minutes}min`;
+        } else {
+            element.innerHTML = `<i class="fas fa-clock"></i> Fillon në ${minutes} minuta`;
+        }
+    };
+
+    updateCountdown();
+    setInterval(updateCountdown, 60000); // Update çdo minutë
+}
+
 // ==================== CALENDAR EXPORT ====================
 
 function exportToCalendar(schedule, imam) {
@@ -605,6 +734,213 @@ function downloadICS(content, filename) {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+}
+
+// ==================== GAMIFICATION: STREAKS & BADGES ====================
+
+const badges = {
+    first_lesson: {
+        id: 'first_lesson',
+        name: 'Fillimi i Udhëtimit',
+        description: 'Vizitoi mësimin e parë',
+        icon: 'fa-star',
+        requirement: 1
+    },
+    five_lessons: {
+        id: 'five_lessons',
+        name: 'Nxënës i Zellshëm',
+        description: 'Vizitoi 5 mësime',
+        icon: 'fa-medal',
+        requirement: 5
+    },
+    ten_lessons: {
+        id: 'ten_lessons',
+        name: 'Kërkues i Dijes',
+        description: 'Vizitoi 10 mësime',
+        icon: 'fa-trophy',
+        requirement: 10
+    },
+    week_streak: {
+        id: 'week_streak',
+        name: 'Javë e Plotë',
+        description: 'Vizitoi mësime 7 ditë me radhë',
+        icon: 'fa-fire',
+        requirement: 7
+    },
+    five_imams: {
+        id: 'five_imams',
+        name: 'Eksplorues',
+        description: 'Vizitoi 5 imamë të ndryshëm',
+        icon: 'fa-compass',
+        requirement: 5
+    }
+};
+
+function markLessonAttended(imamId) {
+    const today = new Date().toISOString().split('T')[0];
+
+    // Shto në listën e vizitave
+    if (!userStats.visited.find(v => v.imamId === imamId && v.date === today)) {
+        userStats.visited.push({
+            imamId: imamId,
+            date: today,
+            timestamp: new Date().toISOString()
+        });
+
+        // Update streak
+        updateStreak();
+
+        // Check për badges të reja
+        checkBadges();
+
+        saveToLocalStorage();
+
+        showToast(`Urime! Ke vizituar mësimin e Hoxhë ${imamsData.find(i => i.id === imamId)?.name}`, 'success');
+    }
+}
+
+function updateStreak() {
+    const sortedDates = [...new Set(userStats.visited.map(v => v.date))].sort().reverse();
+
+    if (sortedDates.length === 0) {
+        userStats.streak = 0;
+        return;
+    }
+
+    let streak = 1;
+    const today = new Date().toISOString().split('T')[0];
+
+    if (sortedDates[0] !== today) {
+        const yesterday = new Date();
+        yesterday.setDate(yesterday.getDate() - 1);
+        const yesterdayStr = yesterday.toISOString().split('T')[0];
+
+        if (sortedDates[0] !== yesterdayStr) {
+            userStats.streak = 0;
+            return;
+        }
+    }
+
+    for (let i = 1; i < sortedDates.length; i++) {
+        const prevDate = new Date(sortedDates[i - 1]);
+        const currDate = new Date(sortedDates[i]);
+        const diffDays = Math.floor((prevDate - currDate) / (1000 * 60 * 60 * 24));
+
+        if (diffDays === 1) {
+            streak++;
+        } else {
+            break;
+        }
+    }
+
+    userStats.streak = streak;
+}
+
+function checkBadges() {
+    const totalLessons = userStats.visited.length;
+    const uniqueImams = [...new Set(userStats.visited.map(v => v.imamId))].length;
+
+    const newBadges = [];
+
+    // First lesson
+    if (totalLessons >= 1 && !userStats.badges.includes('first_lesson')) {
+        newBadges.push('first_lesson');
+    }
+
+    // Five lessons
+    if (totalLessons >= 5 && !userStats.badges.includes('five_lessons')) {
+        newBadges.push('five_lessons');
+    }
+
+    // Ten lessons
+    if (totalLessons >= 10 && !userStats.badges.includes('ten_lessons')) {
+        newBadges.push('ten_lessons');
+    }
+
+    // Week streak
+    if (userStats.streak >= 7 && !userStats.badges.includes('week_streak')) {
+        newBadges.push('week_streak');
+    }
+
+    // Five imams
+    if (uniqueImams >= 5 && !userStats.badges.includes('five_imams')) {
+        newBadges.push('five_imams');
+    }
+
+    newBadges.forEach(badgeId => {
+        userStats.badges.push(badgeId);
+        const badge = badges[badgeId];
+        showBadgeUnlocked(badge);
+    });
+}
+
+function showBadgeUnlocked(badge) {
+    const modal = document.createElement('div');
+    modal.className = 'badge-unlock-modal';
+    modal.innerHTML = `
+        <div class="badge-unlock-content">
+            <div class="badge-icon-large">
+                <i class="fas ${badge.icon}"></i>
+            </div>
+            <h3>Badge e Re!</h3>
+            <h2>${badge.name}</h2>
+            <p>${badge.description}</p>
+            <button class="btn btn-primary close-badge-modal">Vazhdoni</button>
+        </div>
+    `;
+
+    document.body.appendChild(modal);
+    setTimeout(() => modal.classList.add('show'), 10);
+
+    modal.querySelector('.close-badge-modal').addEventListener('click', () => {
+        modal.classList.remove('show');
+        setTimeout(() => modal.remove(), 300);
+    });
+}
+
+function getStatsHTML() {
+    const totalLessons = userStats.visited.length;
+    const uniqueImams = [...new Set(userStats.visited.map(v => v.imamId))].length;
+
+    return `
+        <div class="stats-panel">
+            <h3><i class="fas fa-chart-line"></i> Statistikat e Mia</h3>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-value">${totalLessons}</div>
+                    <div class="stat-label">Mësime të Vizituara</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">${userStats.streak}</div>
+                    <div class="stat-label">Ditë me Radhë</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">${uniqueImams}</div>
+                    <div class="stat-label">Imamë të Ndryshëm</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">${userStats.badges.length}</div>
+                    <div class="stat-label">Badge të Fituara</div>
+                </div>
+            </div>
+            ${userStats.badges.length > 0 ? `
+                <div class="badges-list">
+                    <h4>Badge-t e Mia</h4>
+                    <div class="badges-grid">
+                        ${userStats.badges.map(badgeId => {
+                            const badge = badges[badgeId];
+                            return `
+                                <div class="badge-item" title="${badge.description}">
+                                    <i class="fas ${badge.icon}"></i>
+                                    <span>${badge.name}</span>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                </div>
+            ` : ''}
+        </div>
+    `;
 }
 
 // ==================== BROWSER NOTIFICATIONS ====================
@@ -657,11 +993,16 @@ function openModal(imam) {
     if (schedules.length > 0) {
         schedulesHTML = schedules.map((schedule, index) => {
             const formattedDate = formatDate(schedule.date);
+            const status = getScheduleStatus(schedule);
+
             return `
                 <div class="schedule-item">
                     <div class="schedule-item-header">
                         <h4>${schedule.topic}</h4>
                         <span class="schedule-badge"><i class="fas fa-clock"></i> ${schedule.time}</span>
+                    </div>
+                    <div class="schedule-status-badge ${status.type}" data-schedule-index="${index}" ${status.countdown ? `data-target-time="${schedule.date}T${schedule.time}"` : ''}>
+                        <i class="fas ${status.icon}"></i> ${status.label}
                     </div>
                     <p class="schedule-date"><i class="fas fa-calendar-day"></i> ${formattedDate}</p>
                     <p class="schedule-description">${schedule.description}</p>
@@ -672,12 +1013,34 @@ function openModal(imam) {
                         <button class="btn btn-sm btn-outline schedule-notify-btn" data-schedule-index="${index}">
                             <i class="fas fa-bell"></i> Më kujto
                         </button>
+                        <button class="btn btn-sm btn-success schedule-attended-btn" data-imam-id="${imam.id}">
+                            <i class="fas fa-check"></i> Kam qenë këtu
+                        </button>
                     </div>
                 </div>
             `;
         }).join('');
     } else {
         schedulesHTML = '<p class="no-schedule"><i class="fas fa-info-circle"></i> Aktualisht nuk ka mësime të planifikuara.</p>';
+    }
+
+    // Bio dhe specializimi (nëse ka)
+    let bioHTML = '';
+    if (imam.bio || imam.specialization || imam.education) {
+        bioHTML = `
+            <div class="imam-profile-section">
+                ${imam.bio ? `<p class="imam-bio">${imam.bio}</p>` : ''}
+                ${imam.specialization ? `
+                    <div class="imam-specialization">
+                        <strong><i class="fas fa-graduation-cap"></i> Specializimi:</strong>
+                        ${imam.specialization.map(s => `<span class="spec-badge">${s}</span>`).join('')}
+                    </div>
+                ` : ''}
+                ${imam.education ? `
+                    <p class="imam-education"><i class="fas fa-university"></i> ${imam.education}</p>
+                ` : ''}
+            </div>
+        `;
     }
 
     modalBody.innerHTML = `
@@ -698,6 +1061,8 @@ function openModal(imam) {
                     <span>${schedules.length} ${schedules.length === 1 ? 'Mësim' : 'Mësime'}</span>
                 </div>
             </div>
+
+            ${bioHTML}
 
             <h3 class="schedules-title">Orari i Mësimeve</h3>
             <div class="schedules-list">
@@ -730,6 +1095,14 @@ function openModal(imam) {
         });
     });
 
+    // Event listener për "Kam qenë këtu" button
+    document.querySelectorAll('.schedule-attended-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const imamId = parseInt(btn.getAttribute('data-imam-id'));
+            markLessonAttended(imamId);
+        });
+    });
+
     // Event listener për share button
     const modalShareBtn = modalBody.querySelector('.modal-share-btn');
     if (modalShareBtn) {
@@ -737,6 +1110,12 @@ function openModal(imam) {
             shareImam(imam);
         });
     }
+
+    // Start countdown për mësimet që fillojnë së shpejti
+    document.querySelectorAll('.schedule-status-badge[data-target-time]').forEach(badge => {
+        const targetTime = new Date(badge.getAttribute('data-target-time'));
+        startCountdown(badge, targetTime);
+    });
 
     detailModal.classList.add('active');
     document.body.style.overflow = 'hidden';
@@ -770,6 +1149,11 @@ function switchView(viewName) {
             break;
         case 'about':
             aboutView.style.display = 'block';
+            // Shfaq statistikat
+            const statsContainer = document.getElementById('stats-container');
+            if (statsContainer) {
+                statsContainer.innerHTML = getStatsHTML();
+            }
             break;
     }
 
