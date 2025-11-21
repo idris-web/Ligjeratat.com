@@ -113,19 +113,57 @@ const imamsData = [
     { id: 76, name: "Metush Mehmedi", city: "Prishtinë", location: "Xhamia Çarshia", image: "https://ui-avatars.com/api/?name=Metush+Mehmedi&size=400&background=2c5f2d&color=fff&bold=true" }
 ];
 
-// Të dhënat e orarit për çdo Imam (në prodhim do të vijnë nga API)
+// Të dhënat e orarit për çdo Imam (DEMO DATA - në prodhim do të vijnë nga API)
 const schedulesByImam = {
     1: [ // Ekrem Avdiu
-        { date: "2025-11-24", time: "19:00", topic: "Akide - Besimi në Ditën e Fundit", description: "Një mësim rreth besimit në Ditën e Fundit dhe pasojat e saj në sjelljen e përditshme." }
+        { date: "2025-11-24", time: "19:00", topic: "Akide - Besimi në Ditën e Fundit", description: "Një mësim rreth besimit në Ditën e Fundit dhe pasojat e saj në sjelljen e përditshme." },
+        { date: "2025-11-26", time: "18:30", topic: "Tefsir - Surja Al-Fatiha", description: "Shpjegim i detajuar i Surës Al-Fatiha." }
     ],
     2: [ // Enis Rama
-        { date: "2025-11-23", time: "17:30", topic: "Fikhul Ibadet - Namazi dhe Rëndësia e Tij", description: "Diskutim rreth rregullave të namazit dhe rëndësisë së tij në jetën e një muslimani." }
+        { date: "2025-11-23", time: "17:30", topic: "Fikhul Ibadet - Namazi dhe Rëndësia e Tij", description: "Diskutim rreth rregullave të namazit dhe rëndësisë së tij në jetën e një muslimani." },
+        { date: "2025-11-25", time: "19:00", topic: "Hadith - 40 Hadithet", description: "Studim i 40 Haditheve të Neveviut." }
+    ],
+    3: [ // Blerim Musliu
+        { date: "2025-11-24", time: "18:00", topic: "Edukim Islam për Fëmijë", description: "Metodat e edukimit islam për gjeneratën e re." }
+    ],
+    4: [ // Ismail Bardhoshi
+        { date: "2025-11-22", time: "20:00", topic: "Fikh - Pastrimi", description: "Ligj i pastrimit në Islam." }
+    ],
+    5: [ // Rasim Haxha
+        { date: "2025-11-23", time: "19:30", topic: "Etikë Islame", description: "Sjelljet e mira në Islam." }
+    ],
+    10: [ // Alaudin Abazi
+        { date: "2025-11-25", time: "18:00", topic: "Kur'ani dhe Jeta Moderne", description: "Si të jetojmë sipas Kur'anit sot." }
+    ],
+    16: [ // Jusuf Kastrati
+        { date: "2025-11-26", time: "19:30", topic: "Sira - Jeta e Pejgamberit", description: "Mësime nga jeta e Pejgamberit (s.a.v.s)." }
+    ],
+    23: [ // Ferid Selimi
+        { date: "2025-11-24", time: "17:00", topic: "Zekati dhe Sadaka", description: "Rëndësia e dhënies në Islam." }
+    ],
+    31: [ // Ernest Goga
+        { date: "2025-11-27", time: "18:30", topic: "Namazi i Xhumasë", description: "Rregullat dhe faziletit e namazit të Xhumasë." }
+    ],
+    39: [ // Ulvi Fejzullahu
+        { date: "2025-11-25", time: "20:00", topic: "Agjërimi në Ramazan", description: "Përgat itja për Ramazan." }
+    ],
+    47: [ // Osman Bekteshi
+        { date: "2025-11-23", time: "18:00", topic: "Haxhi - Shtyllë e Islamit", description: "Haxhi dhe rëndësia e tij." }
     ],
     52: [ // Shefqet Krasniqi
         { date: "2025-11-22", time: "18:00", topic: "Tefsiri i Kur'anit - Surja El-Bekare", description: "Një shpjegim i detajuar i Surës El-Bekare, duke u fokusuar në mësimet dhe udhëzimet e saj për jetën e përditshme." },
-        { date: "2025-11-28", time: "13:00", topic: "Hytbeja e së Xhumasë - Falënderimi ndaj Allahut", description: "Hytbe e veçantë e së Xhumasë që fokusohet në rëndësinë e falënderimit ndaj Allahut." }
+        { date: "2025-11-28", time: "13:00", topic: "Hytbeja e së Xhumasë - Falënderimi ndaj Allahut", description: "Hytbe e veçantë e së Xhumasë që fokusohet në rëndësinë e falënderimit ndaj Allahut." },
+        { date: "2025-11-29", time: "19:00", topic: "Sira - Beteja e Bedrit", description: "Mësime nga Beteja e Bedrit." }
+    ],
+    60: [ // Blerim Murati
+        { date: "2025-11-26", time: "18:00", topic: "Dashuria për Allahun", description: "Si të forcojmë dashurinë tonë për Allahun." }
+    ],
+    68: [ // Gazmend Mehmeti
+        { date: "2025-11-27", time: "19:00", topic: "Familja në Islam", description: "Marrëdhëniet familjare sipas Islamit." }
+    ],
+    76: [ // Metush Mehmedi
+        { date: "2025-11-28", time: "18:30", topic: "Dhikri dhe Dua", description: "Rëndësia e përmendjes së Allahut." }
     ]
-    // Më shumë orarë mund të shtohen për imamë të tjerë
 };
 
 // Të dhënat e artikujve të blogut
@@ -363,43 +401,89 @@ function initHeroSection() {
         animateNumber(stat, 0, target, 2000);
     });
 
-    // Hero button event listeners
+    // 1. "Gjej Tani" Button - Scrollt zur Suche
     const quickSearchBtn = document.getElementById('quick-search-btn');
     if (quickSearchBtn) {
         quickSearchBtn.addEventListener('click', () => {
-            document.getElementById('filter-imam').focus();
-            document.getElementById('filter-imam').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            const searchInput = document.getElementById('filter-imam');
+            searchInput.focus();
+            searchInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            showToast('Kërko imam sipas emrit', 'info');
         });
     }
 
-    const featuredBtn = document.getElementById('featured-imams-btn');
-    if (featuredBtn) {
-        featuredBtn.addEventListener('click', () => {
-            document.getElementById('featured-section').scrollIntoView({ behavior: 'smooth' });
+    // 2. "Të gjithë Imamët" Button - Zeigt ALLE 76 Imame
+    const allImamsBtn = document.getElementById('all-imams-btn');
+    if (allImamsBtn) {
+        allImamsBtn.addEventListener('click', () => {
+            // Reset ALL filters
+            const searchInput = document.getElementById('filter-imam');
+            if (searchInput) {
+                searchInput.value = '';
+                const clearBtn = document.getElementById('clear-search');
+                if (clearBtn) clearBtn.style.display = 'none';
+            }
+
+            // Reset global state
+            selectedCity = '';
+            onlyWithSchedules = false;
+            onlyFavorites = false;
+            currentSort = 'name';
+
+            // Reset UI
+            document.querySelectorAll('.city-pill').forEach(p => p.classList.remove('active'));
+            const allCityPill = document.querySelector('.city-pill[data-city=""]');
+            if (allCityPill) allCityPill.classList.add('active');
+
+            document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+            const allFilterChip = document.querySelector('.filter-chip[data-filter="all"]');
+            if (allFilterChip) allFilterChip.classList.add('active');
+
+            document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+            const nameSortBtn = document.querySelector('.sort-btn[data-sort="name"]');
+            if (nameSortBtn) nameSortBtn.classList.add('active');
+
+            // Show ALL 76 imams alphabetically
+            filteredData = [...imamsData];
+            sortData();
+            renderSchedule();
+
+            // Scroll to list
+            const imamsView = document.getElementById('imams-view');
+            if (imamsView) {
+                imamsView.scrollIntoView({ behavior: 'smooth' });
+            }
+
+            showToast('Shfaqen të gjithë 76 imamët!', 'success');
         });
     }
 
+    // 3. "LIVE Tani" Button - Filtert für LIVE Mësime (Demo: zeigt zukünftige)
     const liveNowBtn = document.getElementById('live-now-btn');
     if (liveNowBtn) {
         liveNowBtn.addEventListener('click', () => {
-            // Filter für nur LIVE Mësime
+            // DEMO: Zeige Imame mit Schedules in den nächsten 2 Tagen
             const now = new Date();
-            const liveImams = imamsData.filter(imam => {
+            const twoDaysLater = new Date(now.getTime() + 2 * 24 * 60 * 60 * 1000);
+
+            const upcomingImams = imamsData.filter(imam => {
                 const schedules = schedulesByImam[imam.id] || [];
                 return schedules.some(schedule => {
                     const scheduleDate = new Date(`${schedule.date}T${schedule.time}`);
-                    const diff = now - scheduleDate;
-                    return diff > 0 && diff < 5400000; // 90 minutes
+                    return scheduleDate >= now && scheduleDate <= twoDaysLater;
                 });
             });
 
-            if (liveImams.length > 0) {
-                filteredData = liveImams;
+            if (upcomingImams.length > 0) {
+                filteredData = upcomingImams;
                 renderSchedule();
-                document.getElementById('imams-view').scrollIntoView({ behavior: 'smooth' });
-                showToast(`${liveImams.length} mësim LIVE tani!`, 'success');
+                const imamsView = document.getElementById('imams-view');
+                if (imamsView) {
+                    imamsView.scrollIntoView({ behavior: 'smooth' });
+                }
+                showToast(`${upcomingImams.length} mësime të ardhshme!`, 'success');
             } else {
-                showToast('Nuk ka mësime LIVE tani. Provo më vonë!', 'info');
+                showToast('Nuk ka mësime të planifikuara. Shiko të gjithë imamët!', 'info');
             }
         });
     }
