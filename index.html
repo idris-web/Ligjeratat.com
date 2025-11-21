@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ligjeratat - Orari i Mësimeve të Imamëve</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -24,6 +25,19 @@
                 <select id="filter-city" class="filter-select">
                     <option value="">Të gjitha Qytetet</option>
                 </select>
+
+                <select id="sort-by" class="filter-select">
+                    <option value="name">Rendit sipas Emrit</option>
+                    <option value="city">Rendit sipas Qytetit</option>
+                    <option value="schedules">Rendit sipas Mësimeve</option>
+                </select>
+            </div>
+
+            <div class="filter-toggle-group">
+                <label class="filter-toggle">
+                    <input type="checkbox" id="only-with-schedules">
+                    <span class="toggle-text">Vetëm Hoxha me Mësime</span>
+                </label>
             </div>
         </div>
     </section>

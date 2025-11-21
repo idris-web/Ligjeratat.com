@@ -1,84 +1,84 @@
-// Complete list of all 76 Imams in Kosovo
+// Lista e plotë e të gjithë 76 Imamëve në Kosovë
 const imamsData = [
-    { id: 1, name: "Ekrem Avdiu", city: "Prishtinë", location: "Xhamia e Madhe", image: "🕌" },
-    { id: 2, name: "Enis Rama", city: "Prizren", location: "Xhamia Sinan Pasha", image: "📖" },
-    { id: 3, name: "Blerim Musliu", city: "Prishtinë", location: "Xhamia Dardania", image: "🕌" },
-    { id: 4, name: "Ismail Bardhoshi", city: "Mitrovicë", location: "Xhamia Qendrore", image: "📚" },
-    { id: 5, name: "Rasim Haxha", city: "Ferizaj", location: "Xhamia Qendrore", image: "🤲" },
-    { id: 6, name: "Fadil Musliu", city: "Pejë", location: "Xhamia Bajrakli", image: "🕌" },
-    { id: 7, name: "Zeki Qerkezi", city: "Gjakovë", location: "Xhamia Hadum", image: "📖" },
-    { id: 8, name: "Llokman Hoxha", city: "Gjilan", location: "Xhamia e Madhe", image: "🕌" },
-    { id: 9, name: "Sulltan Pajaziti", city: "Vushtrri", location: "Xhamia Gazi Ali Beu", image: "🤲" },
-    { id: 10, name: "Alaudin Abazi", city: "Prishtinë", location: "Xhamia Arbëria", image: "📚" },
-    { id: 11, name: "Bajram Karabegu", city: "Prizren", location: "Xhamia e Re", image: "🕌" },
-    { id: 12, name: "Sadat Rrustemi", city: "Mitrovicë", location: "Xhamia e Vjetër", image: "📖" },
-    { id: 13, name: "Mustafa Terniqi", city: "Pejë", location: "Xhamia Qendrore", image: "🕌" },
-    { id: 14, name: "Sedat Islami", city: "Ferizaj", location: "Xhamia Sulltan Murat", image: "🤲" },
-    { id: 15, name: "Adnan Pallqa", city: "Gjakovë", location: "Xhamia e Re", image: "📚" },
-    { id: 16, name: "Jusuf Kastrati", city: "Prishtinë", location: "Xhamia Çarshia", image: "🕌" },
-    { id: 17, name: "Arsim Morina", city: "Gjilan", location: "Xhamia Fatih", image: "📖" },
-    { id: 18, name: "Abdurrahman Bejtullahu", city: "Vushtrri", location: "Xhamia e Madhe", image: "🕌" },
-    { id: 19, name: "Sami Fetahu", city: "Prizren", location: "Xhamia Gazi Mehmet Pasha", image: "🤲" },
-    { id: 20, name: "Agim Bekiri", city: "Mitrovicë", location: "Xhamia e Re", image: "📚" },
-    { id: 21, name: "Bekir Halimi", city: "Pejë", location: "Xhamia Bajrakli", image: "🕌" },
-    { id: 22, name: "Ahmed Kalaja", city: "Ferizaj", location: "Xhamia Arbëria", image: "📖" },
-    { id: 23, name: "Ferid Selimi", city: "Prishtinë", location: "Xhamia Lakriste", image: "🕌" },
-    { id: 24, name: "Besnik Llumnica", city: "Gjakovë", location: "Xhamia Çarshia", image: "🤲" },
-    { id: 25, name: "Ahmed Numanaj", city: "Gjilan", location: "Xhamia Qendrore", image: "📚" },
-    { id: 26, name: "Bilal Teqja", city: "Vushtrri", location: "Xhamia e Re", image: "🕌" },
-    { id: 27, name: "Uthman Agolli", city: "Prizren", location: "Xhamia Arasta", image: "📖" },
-    { id: 28, name: "Bledar Haxhiu", city: "Mitrovicë", location: "Xhamia Fatih", image: "🕌" },
-    { id: 29, name: "Justinian Topulli", city: "Pejë", location: "Xhamia e Madhe", image: "🤲" },
-    { id: 30, name: "Enes Goga", city: "Ferizaj", location: "Xhamia e Re", image: "📚" },
-    { id: 31, name: "Ernest Goga", city: "Prishtinë", location: "Xhamia Kalabria", image: "🕌" },
-    { id: 32, name: "Muhamed Broja", city: "Gjakovë", location: "Xhamia Qendrore", image: "📖" },
-    { id: 33, name: "Fidan Musliu", city: "Gjilan", location: "Xhamia e Re", image: "🕌" },
-    { id: 34, name: "Fitim Gerguri", city: "Vushtrri", location: "Xhamia Çarshia", image: "🤲" },
-    { id: 35, name: "Gazmir Sahara", city: "Prizren", location: "Xhamia e Vjetër", image: "📚" },
-    { id: 36, name: "Driton Xhezairi", city: "Mitrovicë", location: "Xhamia Sulltan Mehmet", image: "🕌" },
-    { id: 37, name: "Hadith Miftari", city: "Pejë", location: "Xhamia e Re", image: "📖" },
-    { id: 38, name: "Bashkim Bajrami", city: "Ferizaj", location: "Xhamia Fatih", image: "🕌" },
-    { id: 39, name: "Ulvi Fejzullahu", city: "Prishtinë", location: "Xhamia Mati", image: "🤲" },
-    { id: 40, name: "Muhamed Dermaku", city: "Gjakovë", location: "Xhamia e Madhe", image: "📚" },
-    { id: 41, name: "Hekuran Elshani", city: "Gjilan", location: "Xhamia Arbëria", image: "🕌" },
-    { id: 42, name: "Kujtim Ameti", city: "Vushtrri", location: "Xhamia Fatih", image: "📖" },
-    { id: 43, name: "Amel Kurteshi", city: "Prizren", location: "Xhamia Kalabria", image: "🕌" },
-    { id: 44, name: "Ali Ashani", city: "Mitrovicë", location: "Xhamia e Madhe", image: "🤲" },
-    { id: 45, name: "Bledar Mulla", city: "Pejë", location: "Xhamia Qendrore", image: "📚" },
-    { id: 46, name: "Valdet Gashi", city: "Ferizaj", location: "Xhamia e Madhe", image: "🕌" },
-    { id: 47, name: "Osman Bekteshi", city: "Prishtinë", location: "Xhamia e Re", image: "📖" },
-    { id: 48, name: "Irfan Salihu", city: "Gjakovë", location: "Xhamia Arbëria", image: "🕌" },
-    { id: 49, name: "Remzi Isaku", city: "Gjilan", location: "Xhamia Çarshia", image: "🤲" },
-    { id: 50, name: "Faruk Lohaj", city: "Vushtrri", location: "Xhamia Qendrore", image: "📚" },
-    { id: 51, name: "Mirsim Maliqi", city: "Prizren", location: "Xhamia Fatih", image: "🕌" },
-    { id: 52, name: "Shefqet Krasniqi", city: "Prishtinë", location: "Xhamia e Madhe", image: "📖" },
-    { id: 53, name: "Eroll Rexhepi", city: "Mitrovicë", location: "Xhamia Arbëria", image: "🕌" },
-    { id: 54, name: "Ruzhdi Buzuku", city: "Pejë", location: "Xhamia e Vjetër", image: "🤲" },
-    { id: 55, name: "Bali Sadiku", city: "Ferizaj", location: "Xhamia Çarshia", image: "📚" },
-    { id: 56, name: "Xheladin Leka", city: "Gjakovë", location: "Xhamia Fatih", image: "🕌" },
-    { id: 57, name: "Rafet Zaimi", city: "Gjilan", location: "Xhamia e Madhe", image: "📖" },
-    { id: 58, name: "Harith Selimi", city: "Vushtrri", location: "Xhamia e Re", image: "🕌" },
-    { id: 59, name: "Uvejs Ramadani", city: "Prizren", location: "Xhamia Qendrore", image: "🤲" },
-    { id: 60, name: "Blerim Murati", city: "Prishtinë", location: "Xhamia Ulpiana", image: "📚" },
-    { id: 61, name: "Usame Morina", city: "Mitrovicë", location: "Xhamia Çarshia", image: "🕌" },
-    { id: 62, name: "Irfan Jahiu", city: "Pejë", location: "Xhamia Fatih", image: "📖" },
-    { id: 63, name: "Ismail Asllani", city: "Ferizaj", location: "Xhamia e Re", image: "🕌" },
-    { id: 64, name: "Muharrem Ismaili", city: "Gjakovë", location: "Xhamia e Vjetër", image: "🤲" },
-    { id: 65, name: "Fatmir Latifi", city: "Gjilan", location: "Xhamia Sulltan Murat", image: "📚" },
-    { id: 66, name: "Amir Isaku", city: "Vushtrri", location: "Xhamia e Madhe", image: "🕌" },
-    { id: 67, name: "Sinan Rushiti", city: "Prizren", location: "Xhamia e Re", image: "📖" },
-    { id: 68, name: "Gazmend Mehmeti", city: "Prishtinë", location: "Xhamia Dardania", image: "🕌" },
-    { id: 69, name: "Gilman Kazazi", city: "Mitrovicë", location: "Xhamia e Re", image: "🤲" },
-    { id: 70, name: "Gentjan Mara", city: "Pejë", location: "Xhamia Arbëria", image: "📚" },
-    { id: 71, name: "Lulzim Susuri", city: "Ferizaj", location: "Xhamia Qendrore", image: "🕌" },
-    { id: 72, name: "Musli Zymberi", city: "Gjakovë", location: "Xhamia Çarshia", image: "📖" },
-    { id: 73, name: "Fidan Xhelili", city: "Gjilan", location: "Xhamia Fatih", image: "🕌" },
-    { id: 74, name: "Vesim Avdiu", city: "Vushtrri", location: "Xhamia Arbëria", image: "🤲" },
-    { id: 75, name: "Blerim Rexha", city: "Prizren", location: "Xhamia e Madhe", image: "📚" },
-    { id: 76, name: "Metush Mehmedi", city: "Prishtinë", location: "Xhamia Çarshia", image: "🕌" }
+    { id: 1, name: "Ekrem Avdiu", city: "Prishtinë", location: "Xhamia e Madhe", image: "https://ui-avatars.com/api/?name=Ekrem+Avdiu&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 2, name: "Enis Rama", city: "Prizren", location: "Xhamia Sinan Pasha", image: "https://ui-avatars.com/api/?name=Enis+Rama&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 3, name: "Blerim Musliu", city: "Prishtinë", location: "Xhamia Dardania", image: "https://ui-avatars.com/api/?name=Blerim+Musliu&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 4, name: "Ismail Bardhoshi", city: "Mitrovicë", location: "Xhamia Qendrore", image: "https://ui-avatars.com/api/?name=Ismail+Bardhoshi&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 5, name: "Rasim Haxha", city: "Ferizaj", location: "Xhamia Qendrore", image: "https://ui-avatars.com/api/?name=Rasim+Haxha&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 6, name: "Fadil Musliu", city: "Pejë", location: "Xhamia Bajrakli", image: "https://ui-avatars.com/api/?name=Fadil+Musliu&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 7, name: "Zeki Qerkezi", city: "Gjakovë", location: "Xhamia Hadum", image: "https://ui-avatars.com/api/?name=Zeki+Qerkezi&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 8, name: "Llokman Hoxha", city: "Gjilan", location: "Xhamia e Madhe", image: "https://ui-avatars.com/api/?name=Llokman+Hoxha&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 9, name: "Sulltan Pajaziti", city: "Vushtrri", location: "Xhamia Gazi Ali Beu", image: "https://ui-avatars.com/api/?name=Sulltan+Pajaziti&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 10, name: "Alaudin Abazi", city: "Prishtinë", location: "Xhamia Arbëria", image: "https://ui-avatars.com/api/?name=Alaudin+Abazi&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 11, name: "Bajram Karabegu", city: "Prizren", location: "Xhamia e Re", image: "https://ui-avatars.com/api/?name=Bajram+Karabegu&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 12, name: "Sadat Rrustemi", city: "Mitrovicë", location: "Xhamia e Vjetër", image: "https://ui-avatars.com/api/?name=Sadat+Rrustemi&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 13, name: "Mustafa Terniqi", city: "Pejë", location: "Xhamia Qendrore", image: "https://ui-avatars.com/api/?name=Mustafa+Terniqi&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 14, name: "Sedat Islami", city: "Ferizaj", location: "Xhamia Sulltan Murat", image: "https://ui-avatars.com/api/?name=Sedat+Islami&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 15, name: "Adnan Pallqa", city: "Gjakovë", location: "Xhamia e Re", image: "https://ui-avatars.com/api/?name=Adnan+Pallqa&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 16, name: "Jusuf Kastrati", city: "Prishtinë", location: "Xhamia Çarshia", image: "https://ui-avatars.com/api/?name=Jusuf+Kastrati&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 17, name: "Arsim Morina", city: "Gjilan", location: "Xhamia Fatih", image: "https://ui-avatars.com/api/?name=Arsim+Morina&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 18, name: "Abdurrahman Bejtullahu", city: "Vushtrri", location: "Xhamia e Madhe", image: "https://ui-avatars.com/api/?name=Abdurrahman+Bejtullahu&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 19, name: "Sami Fetahu", city: "Prizren", location: "Xhamia Gazi Mehmet Pasha", image: "https://ui-avatars.com/api/?name=Sami+Fetahu&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 20, name: "Agim Bekiri", city: "Mitrovicë", location: "Xhamia e Re", image: "https://ui-avatars.com/api/?name=Agim+Bekiri&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 21, name: "Bekir Halimi", city: "Pejë", location: "Xhamia Bajrakli", image: "https://ui-avatars.com/api/?name=Bekir+Halimi&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 22, name: "Ahmed Kalaja", city: "Ferizaj", location: "Xhamia Arbëria", image: "https://ui-avatars.com/api/?name=Ahmed+Kalaja&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 23, name: "Ferid Selimi", city: "Prishtinë", location: "Xhamia Lakriste", image: "https://ui-avatars.com/api/?name=Ferid+Selimi&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 24, name: "Besnik Llumnica", city: "Gjakovë", location: "Xhamia Çarshia", image: "https://ui-avatars.com/api/?name=Besnik+Llumnica&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 25, name: "Ahmed Numanaj", city: "Gjilan", location: "Xhamia Qendrore", image: "https://ui-avatars.com/api/?name=Ahmed+Numanaj&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 26, name: "Bilal Teqja", city: "Vushtrri", location: "Xhamia e Re", image: "https://ui-avatars.com/api/?name=Bilal+Teqja&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 27, name: "Uthman Agolli", city: "Prizren", location: "Xhamia Arasta", image: "https://ui-avatars.com/api/?name=Uthman+Agolli&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 28, name: "Bledar Haxhiu", city: "Mitrovicë", location: "Xhamia Fatih", image: "https://ui-avatars.com/api/?name=Bledar+Haxhiu&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 29, name: "Justinian Topulli", city: "Pejë", location: "Xhamia e Madhe", image: "https://ui-avatars.com/api/?name=Justinian+Topulli&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 30, name: "Enes Goga", city: "Ferizaj", location: "Xhamia e Re", image: "https://ui-avatars.com/api/?name=Enes+Goga&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 31, name: "Ernest Goga", city: "Prishtinë", location: "Xhamia Kalabria", image: "https://ui-avatars.com/api/?name=Ernest+Goga&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 32, name: "Muhamed Broja", city: "Gjakovë", location: "Xhamia Qendrore", image: "https://ui-avatars.com/api/?name=Muhamed+Broja&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 33, name: "Fidan Musliu", city: "Gjilan", location: "Xhamia e Re", image: "https://ui-avatars.com/api/?name=Fidan+Musliu&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 34, name: "Fitim Gerguri", city: "Vushtrri", location: "Xhamia Çarshia", image: "https://ui-avatars.com/api/?name=Fitim+Gerguri&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 35, name: "Gazmir Sahara", city: "Prizren", location: "Xhamia e Vjetër", image: "https://ui-avatars.com/api/?name=Gazmir+Sahara&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 36, name: "Driton Xhezairi", city: "Mitrovicë", location: "Xhamia Sulltan Mehmet", image: "https://ui-avatars.com/api/?name=Driton+Xhezairi&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 37, name: "Hadith Miftari", city: "Pejë", location: "Xhamia e Re", image: "https://ui-avatars.com/api/?name=Hadith+Miftari&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 38, name: "Bashkim Bajrami", city: "Ferizaj", location: "Xhamia Fatih", image: "https://ui-avatars.com/api/?name=Bashkim+Bajrami&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 39, name: "Ulvi Fejzullahu", city: "Prishtinë", location: "Xhamia Mati", image: "https://ui-avatars.com/api/?name=Ulvi+Fejzullahu&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 40, name: "Muhamed Dermaku", city: "Gjakovë", location: "Xhamia e Madhe", image: "https://ui-avatars.com/api/?name=Muhamed+Dermaku&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 41, name: "Hekuran Elshani", city: "Gjilan", location: "Xhamia Arbëria", image: "https://ui-avatars.com/api/?name=Hekuran+Elshani&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 42, name: "Kujtim Ameti", city: "Vushtrri", location: "Xhamia Fatih", image: "https://ui-avatars.com/api/?name=Kujtim+Ameti&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 43, name: "Amel Kurteshi", city: "Prizren", location: "Xhamia Kalabria", image: "https://ui-avatars.com/api/?name=Amel+Kurteshi&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 44, name: "Ali Ashani", city: "Mitrovicë", location: "Xhamia e Madhe", image: "https://ui-avatars.com/api/?name=Ali+Ashani&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 45, name: "Bledar Mulla", city: "Pejë", location: "Xhamia Qendrore", image: "https://ui-avatars.com/api/?name=Bledar+Mulla&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 46, name: "Valdet Gashi", city: "Ferizaj", location: "Xhamia e Madhe", image: "https://ui-avatars.com/api/?name=Valdet+Gashi&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 47, name: "Osman Bekteshi", city: "Prishtinë", location: "Xhamia e Re", image: "https://ui-avatars.com/api/?name=Osman+Bekteshi&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 48, name: "Irfan Salihu", city: "Gjakovë", location: "Xhamia Arbëria", image: "https://ui-avatars.com/api/?name=Irfan+Salihu&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 49, name: "Remzi Isaku", city: "Gjilan", location: "Xhamia Çarshia", image: "https://ui-avatars.com/api/?name=Remzi+Isaku&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 50, name: "Faruk Lohaj", city: "Vushtrri", location: "Xhamia Qendrore", image: "https://ui-avatars.com/api/?name=Faruk+Lohaj&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 51, name: "Mirsim Maliqi", city: "Prizren", location: "Xhamia Fatih", image: "https://ui-avatars.com/api/?name=Mirsim+Maliqi&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 52, name: "Shefqet Krasniqi", city: "Prishtinë", location: "Xhamia e Madhe", image: "https://ui-avatars.com/api/?name=Shefqet+Krasniqi&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 53, name: "Eroll Rexhepi", city: "Mitrovicë", location: "Xhamia Arbëria", image: "https://ui-avatars.com/api/?name=Eroll+Rexhepi&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 54, name: "Ruzhdi Buzuku", city: "Pejë", location: "Xhamia e Vjetër", image: "https://ui-avatars.com/api/?name=Ruzhdi+Buzuku&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 55, name: "Bali Sadiku", city: "Ferizaj", location: "Xhamia Çarshia", image: "https://ui-avatars.com/api/?name=Bali+Sadiku&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 56, name: "Xheladin Leka", city: "Gjakovë", location: "Xhamia Fatih", image: "https://ui-avatars.com/api/?name=Xheladin+Leka&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 57, name: "Rafet Zaimi", city: "Gjilan", location: "Xhamia e Madhe", image: "https://ui-avatars.com/api/?name=Rafet+Zaimi&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 58, name: "Harith Selimi", city: "Vushtrri", location: "Xhamia e Re", image: "https://ui-avatars.com/api/?name=Harith+Selimi&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 59, name: "Uvejs Ramadani", city: "Prizren", location: "Xhamia Qendrore", image: "https://ui-avatars.com/api/?name=Uvejs+Ramadani&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 60, name: "Blerim Murati", city: "Prishtinë", location: "Xhamia Ulpiana", image: "https://ui-avatars.com/api/?name=Blerim+Murati&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 61, name: "Usame Morina", city: "Mitrovicë", location: "Xhamia Çarshia", image: "https://ui-avatars.com/api/?name=Usame+Morina&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 62, name: "Irfan Jahiu", city: "Pejë", location: "Xhamia Fatih", image: "https://ui-avatars.com/api/?name=Irfan+Jahiu&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 63, name: "Ismail Asllani", city: "Ferizaj", location: "Xhamia e Re", image: "https://ui-avatars.com/api/?name=Ismail+Asllani&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 64, name: "Muharrem Ismaili", city: "Gjakovë", location: "Xhamia e Vjetër", image: "https://ui-avatars.com/api/?name=Muharrem+Ismaili&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 65, name: "Fatmir Latifi", city: "Gjilan", location: "Xhamia Sulltan Murat", image: "https://ui-avatars.com/api/?name=Fatmir+Latifi&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 66, name: "Amir Isaku", city: "Vushtrri", location: "Xhamia e Madhe", image: "https://ui-avatars.com/api/?name=Amir+Isaku&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 67, name: "Sinan Rushiti", city: "Prizren", location: "Xhamia e Re", image: "https://ui-avatars.com/api/?name=Sinan+Rushiti&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 68, name: "Gazmend Mehmeti", city: "Prishtinë", location: "Xhamia Dardania", image: "https://ui-avatars.com/api/?name=Gazmend+Mehmeti&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 69, name: "Gilman Kazazi", city: "Mitrovicë", location: "Xhamia e Re", image: "https://ui-avatars.com/api/?name=Gilman+Kazazi&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 70, name: "Gentjan Mara", city: "Pejë", location: "Xhamia Arbëria", image: "https://ui-avatars.com/api/?name=Gentjan+Mara&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 71, name: "Lulzim Susuri", city: "Ferizaj", location: "Xhamia Qendrore", image: "https://ui-avatars.com/api/?name=Lulzim+Susuri&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 72, name: "Musli Zymberi", city: "Gjakovë", location: "Xhamia Çarshia", image: "https://ui-avatars.com/api/?name=Musli+Zymberi&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 73, name: "Fidan Xhelili", city: "Gjilan", location: "Xhamia Fatih", image: "https://ui-avatars.com/api/?name=Fidan+Xhelili&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 74, name: "Vesim Avdiu", city: "Vushtrri", location: "Xhamia Arbëria", image: "https://ui-avatars.com/api/?name=Vesim+Avdiu&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 75, name: "Blerim Rexha", city: "Prizren", location: "Xhamia e Madhe", image: "https://ui-avatars.com/api/?name=Blerim+Rexha&size=400&background=2c5f2d&color=fff&bold=true" },
+    { id: 76, name: "Metush Mehmedi", city: "Prishtinë", location: "Xhamia Çarshia", image: "https://ui-avatars.com/api/?name=Metush+Mehmedi&size=400&background=2c5f2d&color=fff&bold=true" }
 ];
 
-// Sample schedule data for each Imam (this would come from API in production)
+// Të dhënat e orarit për çdo Imam (në prodhim do të vijnë nga API)
 const schedulesByImam = {
     1: [ // Ekrem Avdiu
         { date: "2025-11-24", time: "19:00", topic: "Akide - Besimi në Ditën e Fundit", description: "Një mësim rreth besimit në Ditën e Fundit dhe pasojat e saj në sjelljen e përditshme." }
@@ -90,47 +90,44 @@ const schedulesByImam = {
         { date: "2025-11-22", time: "18:00", topic: "Tefsiri i Kur'anit - Surja El-Bekare", description: "Një shpjegim i detajuar i Surës El-Bekare, duke u fokusuar në mësimet dhe udhëzimet e saj për jetën e përditshme." },
         { date: "2025-11-28", time: "13:00", topic: "Hytbeja e së Xhumasë - Falënderimi ndaj Allahut", description: "Hytbe e veçantë e së Xhumasë që fokusohet në rëndësinë e falënderimit ndaj Allahut." }
     ]
-    // More schedules can be added for other imams
+    // Më shumë orarë mund të shtohen për imamë të tjerë
 };
 
-// State management
+// Menaxhimi i gjendjes
 let filteredData = [...imamsData];
-let reminders = JSON.parse(localStorage.getItem('reminders')) || [];
+let currentSort = 'name';
+let onlyWithSchedules = false;
 
-// DOM Elements
+// Elementet e DOM
 const scheduleList = document.getElementById('schedule-list');
 const noResults = document.getElementById('no-results');
 const filterImam = document.getElementById('filter-imam');
-const filterTopic = document.getElementById('filter-topic');
 const filterCity = document.getElementById('filter-city');
+const sortBy = document.getElementById('sort-by');
+const onlyWithSchedulesToggle = document.getElementById('only-with-schedules');
 const detailModal = document.getElementById('detail-modal');
 const modalClose = document.getElementById('modal-close');
 const modalBody = document.getElementById('modal-body');
 
-// Initialize App
+// Inicializimi i Aplikacionit
 function init() {
-    // Sort imams alphabetically
+    // Rendit imamët alfabetikisht
     imamsData.sort((a, b) => a.name.localeCompare(b.name));
 
-    // Populate filters
+    // Populloj filtrat
     populateFilters();
 
-    // Render imams list
+    // Shfaq listën e imamëve
     renderSchedule();
 
-    // Setup event listeners
+    // Vendos dëgjuesit e ngjarjeve
     setupEventListeners();
-
-    // Request notification permission
-    requestNotificationPermission();
 }
 
-// Populate filter dropdowns
+// Populloj filtrat dropdown
 function populateFilters() {
     const cities = [...new Set(imamsData.map(item => item.city))].sort();
 
-    // Clear existing options (keep first "all" option)
-    filterImam.innerHTML = '<option value="">Kërko Hoxhën...</option>';
     filterCity.innerHTML = '<option value="">Të gjitha Qytetet</option>';
 
     cities.forEach(city => {
@@ -140,7 +137,7 @@ function populateFilters() {
         filterCity.appendChild(option);
     });
 
-    // Change filter imam to a search field
+    // Ndryshoj filtrin e imamit në fushë kërkimi
     filterImam.setAttribute('list', 'imams-list');
     const datalist = document.createElement('datalist');
     datalist.id = 'imams-list';
@@ -152,7 +149,7 @@ function populateFilters() {
     filterImam.parentNode.appendChild(datalist);
 }
 
-// Render imams list
+// Shfaq listën e imamëve
 function renderSchedule() {
     scheduleList.innerHTML = '';
 
@@ -171,7 +168,7 @@ function renderSchedule() {
     });
 }
 
-// Create imam card element
+// Krijon kartelën e imamit
 function createImamCard(imam) {
     const card = document.createElement('div');
     card.className = 'schedule-card';
@@ -183,35 +180,37 @@ function createImamCard(imam) {
     const mapLink = `https://maps.google.com/?q=${encodeURIComponent(imam.location + ' ' + imam.city)}`;
 
     card.innerHTML = `
-        <div class="card-image">${imam.image}</div>
+        <div class="card-image">
+            <img src="${imam.image}" alt="${imam.name}" loading="lazy">
+        </div>
         <div class="card-content">
             <h3 class="card-imam">Hoxhë ${imam.name}</h3>
             <p class="card-topic">${imam.location}</p>
             <div class="card-meta">
                 <div class="card-meta-item">
-                    <span class="card-meta-icon">📍</span>
+                    <i class="fas fa-map-marker-alt card-meta-icon"></i>
                     <span>${imam.city}</span>
                 </div>
                 <div class="card-meta-item">
-                    <span class="card-meta-icon">📚</span>
+                    <i class="fas fa-book card-meta-icon"></i>
                     <span>${scheduleCount} ${scheduleCount === 1 ? 'Mësim' : 'Mësime'}</span>
                 </div>
                 ${nextSchedule ? `
                 <div class="card-meta-item">
-                    <span class="card-meta-icon">📅</span>
+                    <i class="fas fa-calendar-alt card-meta-icon"></i>
                     <span>Tjetri: ${formatDate(nextSchedule.date)}</span>
                 </div>
                 ` : ''}
             </div>
             <div class="card-actions">
                 <button class="btn btn-primary view-schedule-btn">
-                    Shiko Orarin 👁️
+                    <i class="fas fa-eye"></i> Shiko Orarin
                 </button>
             </div>
         </div>
     `;
 
-    // Click to open modal with imam's schedule
+    // Kliko për të hapur modalin me orarin e imamit
     card.addEventListener('click', () => {
         openModal(imam);
     });
@@ -219,7 +218,7 @@ function createImamCard(imam) {
     return card;
 }
 
-// Format date to Albanian
+// Formaton datën në shqip
 function formatDate(dateString) {
     const date = new Date(dateString);
     const days = ['E Diel', 'E Hënë', 'E Martë', 'E Mërkurë', 'E Enjte', 'E Premte', 'E Shtunë'];
@@ -228,26 +227,60 @@ function formatDate(dateString) {
     return `${days[date.getDay()]}, ${date.getDate()} ${months[date.getMonth()]}`;
 }
 
-// Filter data
+// Filtron dhe rendit të dhënat
 function filterData() {
     const imamValue = filterImam.value.toLowerCase();
     const cityValue = filterCity.value;
 
+    // Filtron të dhënat
     filteredData = imamsData.filter(item => {
         const matchImam = !imamValue || item.name.toLowerCase().includes(imamValue);
         const matchCity = !cityValue || item.city === cityValue;
+        const matchSchedules = !onlyWithSchedules || (schedulesByImam[item.id] && schedulesByImam[item.id].length > 0);
 
-        return matchImam && matchCity;
+        return matchImam && matchCity && matchSchedules;
     });
+
+    // Rendit të dhënat
+    sortData();
 
     renderSchedule();
 }
 
-// Setup event listeners
+// Rendit të dhënat sipas kritereve të zgjedhura
+function sortData() {
+    switch(currentSort) {
+        case 'name':
+            filteredData.sort((a, b) => a.name.localeCompare(b.name));
+            break;
+        case 'city':
+            filteredData.sort((a, b) => a.city.localeCompare(b.city));
+            break;
+        case 'schedules':
+            filteredData.sort((a, b) => {
+                const aCount = schedulesByImam[a.id]?.length || 0;
+                const bCount = schedulesByImam[b.id]?.length || 0;
+                return bCount - aCount; // Zbritës
+            });
+            break;
+    }
+}
+
+// Vendos dëgjuesit e ngjarjeve
 function setupEventListeners() {
     filterImam.addEventListener('input', filterData);
     filterImam.addEventListener('change', filterData);
     filterCity.addEventListener('change', filterData);
+
+    sortBy.addEventListener('change', (e) => {
+        currentSort = e.target.value;
+        filterData();
+    });
+
+    onlyWithSchedulesToggle.addEventListener('change', (e) => {
+        onlyWithSchedules = e.target.checked;
+        filterData();
+    });
 
     modalClose.addEventListener('click', closeModal);
     detailModal.addEventListener('click', (e) => {
@@ -257,7 +290,7 @@ function setupEventListeners() {
     });
 }
 
-// Open modal with imam's schedule
+// Hap modalin me orarin e imamit
 function openModal(imam) {
     const schedules = schedulesByImam[imam.id] || [];
     const mapLink = `https://maps.google.com/?q=${encodeURIComponent(imam.location + ' ' + imam.city)}`;
@@ -270,30 +303,32 @@ function openModal(imam) {
                 <div class="schedule-item">
                     <div class="schedule-item-header">
                         <h4>${schedule.topic}</h4>
-                        <span class="schedule-badge">${schedule.time}</span>
+                        <span class="schedule-badge"><i class="fas fa-clock"></i> ${schedule.time}</span>
                     </div>
-                    <p class="schedule-date">📅 ${formattedDate}</p>
+                    <p class="schedule-date"><i class="fas fa-calendar-day"></i> ${formattedDate}</p>
                     <p class="schedule-description">${schedule.description}</p>
                 </div>
             `;
         }).join('');
     } else {
-        schedulesHTML = '<p class="no-schedule">Aktualisht nuk ka mësime të planifikuara.</p>';
+        schedulesHTML = '<p class="no-schedule"><i class="fas fa-info-circle"></i> Aktualisht nuk ka mësime të planifikuara.</p>';
     }
 
     modalBody.innerHTML = `
-        <div class="modal-image">${imam.image}</div>
+        <div class="modal-image">
+            <img src="${imam.image}" alt="${imam.name}" loading="lazy">
+        </div>
         <div class="modal-body">
             <h2 class="modal-imam">Hoxhë ${imam.name}</h2>
-            <p class="modal-topic">${imam.location}</p>
+            <p class="modal-topic"><i class="fas fa-mosque"></i> ${imam.location}</p>
 
             <div class="modal-meta">
                 <div class="modal-meta-item">
-                    <span class="modal-meta-icon">📍</span>
+                    <i class="fas fa-map-marker-alt modal-meta-icon"></i>
                     <span>${imam.city}</span>
                 </div>
                 <div class="modal-meta-item">
-                    <span class="modal-meta-icon">📚</span>
+                    <i class="fas fa-book modal-meta-icon"></i>
                     <span>${schedules.length} ${schedules.length === 1 ? 'Mësim' : 'Mësime'}</span>
                 </div>
             </div>
@@ -305,7 +340,7 @@ function openModal(imam) {
 
             <div class="modal-actions">
                 <a href="${mapLink}" target="_blank" class="btn btn-primary">
-                    📍 Shiko në Hartë
+                    <i class="fas fa-map-marked-alt"></i> Shiko në Hartë
                 </a>
             </div>
         </div>
@@ -315,20 +350,13 @@ function openModal(imam) {
     document.body.style.overflow = 'hidden';
 }
 
-// Close modal
+// Mbyll modalin
 function closeModal() {
     detailModal.classList.remove('active');
     document.body.style.overflow = '';
 }
 
-// Request notification permission (for future use)
-function requestNotificationPermission() {
-    if ('Notification' in window && Notification.permission === 'default') {
-        Notification.requestPermission();
-    }
-}
-
-// Initialize app on load
+// Inicializo aplikacionin kur ngarkohet faqja
 document.addEventListener('DOMContentLoaded', () => {
     init();
 });
